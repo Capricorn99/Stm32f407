@@ -339,6 +339,6 @@ typedef struct
 #define GPIO_PIN_RESET	RESET
 
 #include "stm32f4xx_gpio_driver.h"
-#include "stm32f4xx_spi_driver.h"
+
 
 #endif /* INC_STM32F4XX_H_ */
