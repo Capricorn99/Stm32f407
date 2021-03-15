@@ -1,16 +1,16 @@
-17:22:53 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
+20:55:12 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
 make -j4 all 
+arm-none-eabi-gcc "../drivers/Src/stm32f4xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_gpio_driver.d" -MT"drivers/Src/stm32f4xx_gpio_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "drivers/Src/stm32f4xx_gpio_driver.o"
 arm-none-eabi-gcc "../drivers/Src/stm32f4xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_spi_driver.d" -MT"drivers/Src/stm32f4xx_spi_driver.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "drivers/Src/stm32f4xx_spi_driver.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/006spi_tx_testing.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/006spi_tx_testing.d" -MT"Src/006spi_tx_testing.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/006spi_tx_testing.o"
 arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: stm32f4xx_drivers.elf
  
-arm-none-eabi-size   stm32f4xx_drivers.elf 
 arm-none-eabi-objdump -h -S  stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
 arm-none-eabi-objcopy  -O binary  stm32f4xx_drivers.elf  "stm32f4xx_drivers.bin"
+arm-none-eabi-size   stm32f4xx_drivers.elf 
    text	   data	    bss	    dec	    hex	filename
-    684	      8	   1568	   2260	    8d4	stm32f4xx_drivers.elf
+   2704	      8	   1568	   4280	   10b8	stm32f4xx_drivers.elf
 Finished building: default.size.stdout
  
 Finished building: stm32f4xx_drivers.list
@@ -18,5 +18,5 @@ Finished building: stm32f4xx_drivers.bin
  
  
 
-17:22:55 Build Finished. 0 errors, 0 warnings. (took 1s.716ms)
+20:55:13 Build Finished. 0 errors, 0 warnings. (took 891ms)
 

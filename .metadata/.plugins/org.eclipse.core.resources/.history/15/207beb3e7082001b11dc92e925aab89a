@@ -7,7 +7,7 @@
 #include "stm32f4xx.h"
 #include  <string.h>
 
-void SPI2_GPIOInits(void)
+void SPI_GPIOInits(void)
 {
 
 	GPIO_Handle_t SPIPins;
@@ -54,13 +54,10 @@ int main(void)
 {
 	char user_data[] ="Hello word";
 	//this function is used to initialize the GPIO pins to behave as SPI2 pins
-	SPI2_GPIOInits();
+	SPI_GPIOInits();
 
 	//this function is used to initialize the SPI2 peripheral parameters
 	SPI2_Inits();
-
-	//enable the SPI2 peropheral
-	SPI_PeripheralControl(SPI2, ENABLE);
 
 	SPI_SendData(SPI2, (uint8_t*)user_data, strlen(user_data));
 
