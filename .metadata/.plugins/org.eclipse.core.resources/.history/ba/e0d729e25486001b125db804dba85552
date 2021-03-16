@@ -40,6 +40,8 @@ void SPI2_GPIOInits(void)
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
 	GPIO_Init(&SPIPins);
 
+
+
 }
 
 void SPI2_Inits(void)
@@ -56,7 +58,6 @@ void SPI2_Inits(void)
 	SPI2handle.SPIConfig.SPI_SSM = SPI_SSM_DI; //hardware slave management
 
 	SPI_Init(&SPI2handle);
-
 }
 
 void GPIO_ButtonInit(void)

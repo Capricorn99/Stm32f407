@@ -56,7 +56,6 @@ void SPI2_Inits(void)
 	SPI2handle.SPIConfig.SPI_SSM = SPI_SSM_DI; //hardware slave management
 
 	SPI_Init(&SPI2handle);
-
 }
 
 void GPIO_ButtonInit(void)

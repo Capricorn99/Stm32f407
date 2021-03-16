@@ -113,30 +113,29 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	if(pSPIHandle -> SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_FD)
 	{
 		//bidi mode should be cleared
-		tempreg &= ~(1<< SPI_CR1_BIDIMODE);
+		tempreg &=~ (1<< SPI_CR1_BIDIMODE);
 	}else if (pSPIHandle ->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_HD)
 	{
 		//BIDI mode should be set
-		tempreg |= ~(1<<SPI_CR1_BIDIMODE);
+		tempreg |= ~ (1<<SPI_CR1_BIDIMODE);
 	}else if (pSPIHandle ->SPIConfig.SPI_BusConfig == SPI_BUS_CONFIG_SIMPLEX_RXONLY)
 	{
 		//BIDI mode should be cleared
-		tempreg &= ~(1<<SPI_CR1_BIDIMODE);
+		tempreg &= ~ (1<<SPI_CR1_BIDIMODE);
 		//RXONLY bit must be set
 		tempreg |= (1<<SPI_CR1_RXONLY);
 	}
 	//3. configure the spi serial clock speed (baud rate)
-	tempreg |= pSPIHandle->SPIConfig.SPI_SclkSpeed << SPI_CR1_BR;
+	tempreg |= pSPIHandle->SPIConfig.SPI_SclkSpeed << 3;
 	//4. configure the spi serial clock speed (baud rate)
-	tempreg |= pSPIHandle->SPIConfig.SPI_DFF << SPI_CR1_DFF;
+	tempreg |= pSPIHandle->SPIConfig.SPI_DFF << 11;
 	//5. configure the spi serial clock speed (baud rate)
-	tempreg |= pSPIHandle->SPIConfig.SPI_CPOL << SPI_CR1_CPOL;
-	//6 . configure the CPHA
-	tempreg |= pSPIHandle->SPIConfig.SPI_CPHA << SPI_CR1_CPHA;
-
-	tempreg |= pSPIHandle->SPIConfig.SPI_SSM << SPI_CR1_SSM;
+	tempreg |= pSPIHandle->SPIConfig.SPI_CPOL << 1;
+	//6. configure the spi serial clock speed (baud rate)
+	tempreg |= pSPIHandle->SPIConfig.SPI_CPHA << 0;
 
 	pSPIHandle->pSPIx->CR1 = tempreg;
+
 }
 
 /*************************

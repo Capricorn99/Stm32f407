@@ -104,7 +104,7 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 
 	//first lets configure the SPI_CR1 register
 
-	uint32_t tempreg = 0;
+	uint16_t tempreg = 0;
 
 	//1. configure the device mode
 	tempreg |= pSPIHandle->SPIConfig.SPI_DeviceMode << SPI_CR1_MSTR;
