@@ -79,7 +79,13 @@ typedef struct
 #define SPI_SSM_EN	1
 #define SPI_SSM_DI	0
 
-#define SPI_TXE_FLAG	(1<< SPI_SR_TXE)
+
+/*
+ * SPI related status flags definitions
+ */
+#define SPI_TXE_FLAG	(1 << SPI_SR_TXE)
+#define SPI_BUSY_FLAG   ( 1 << SPI_SR_BSY)
+
 
 /**********************************************************************************************
  * 				APIs supported by this driver
@@ -114,6 +120,8 @@ void SPI_IRQHandling(SPI_Handle_t *pHandle);
  *  Other Peripheral Control APIs
  */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+void SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
 
 
 
