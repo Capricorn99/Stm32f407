@@ -33,8 +33,8 @@ void SPI2_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//MISO
-	//SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
-	//GPIO_Init(&SPIPins);
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
+	GPIO_Init(&SPIPins);
 
 	//NSS
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
@@ -76,7 +76,7 @@ void GPIO_ButtonInit(void)
 
 int main(void)
 {
-	char user_data[] ="Hello word";
+	char user_data[] ="Hello word ";
 
 	GPIO_ButtonInit();
 
@@ -106,6 +106,7 @@ int main(void)
 		SPI_PeripheralControl(SPI2,ENABLE);
 
 		//first send length information
+		// Thay doi uint8_t thành 16 or 32 để gửi nhiều kí tự hơn
 		uint8_t dataLen = strlen(user_data);
 		SPI_SendData(SPI2,&dataLen,1);
 

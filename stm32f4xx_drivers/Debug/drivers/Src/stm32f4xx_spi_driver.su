@@ -4,4 +4,5 @@ stm32f4xx_spi_driver.c:82:7:SPI_SSOEConfig	16	static
 stm32f4xx_spi_driver.c:100:6:SPI_Init	24	static
 stm32f4xx_spi_driver.c:152:9:SPI_GetFlagStatus	16	static
 stm32f4xx_spi_driver.c:167:6:SPI_SendData	24	static
-stm32f4xx_spi_driver.c:202:6:SPI_PeripheralControl	16	static
+stm32f4xx_spi_driver.c:206:6:SPI_ReceiveData	24	static
+stm32f4xx_spi_driver.c:237:6:SPI_PeripheralControl	16	static

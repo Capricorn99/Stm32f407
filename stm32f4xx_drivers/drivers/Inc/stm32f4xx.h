@@ -9,6 +9,8 @@
 #define INC_STM32F4XX_H_
 
 #define __vo volatile
+
+#include<stddef.h>
 #include<stdint.h>
 
 /*
