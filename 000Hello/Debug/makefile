@@ -35,34 +35,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := 000Hello
+BUILD_ARTIFACT_NAME := stm32f4xx_drivers
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX := 
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME).$(BUILD_ARTIFACT_EXTENSION)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-000Hello.elf \
+stm32f4xx_drivers.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-000Hello.list \
+stm32f4xx_drivers.list \
 
 OBJCOPY_BIN += \
-000Hello.bin \
+stm32f4xx_drivers.bin \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: 000Hello.elf secondary-outputs
+main-build: stm32f4xx_drivers.elf secondary-outputs
 
 # Tool invocations
-000Hello.elf: $(OBJS) $(USER_OBJS) E:\Knowledge\Stm32f407xx\ Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "000Hello.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="000Hello.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+stm32f4xx_drivers.elf: $(OBJS) $(USER_OBJS) E:\Knowledge\Stm32f407xx\ Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -71,13 +71,13 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-000Hello.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "000Hello.list"
+stm32f4xx_drivers.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "stm32f4xx_drivers.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-000Hello.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "000Hello.bin"
+stm32f4xx_drivers.bin: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "stm32f4xx_drivers.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 

@@ -5,3 +5,5 @@
 1616298730658	Delete resource 'stm32f4xx_drivers/stm32f4xx_drivers.cfg'
 1616298757366	Delete resource 'stm32f4xx_drivers/Src/main.c'
 1616299371651	Delete resource 'stm32f4xx_drivers'
+1616299540159	Rename resource '000Hello'
+1616299613639	Rename resource 'stm32f4xx_drivers'

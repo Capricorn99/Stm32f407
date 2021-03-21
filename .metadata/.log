@@ -1801,3 +1801,9 @@ java.io.FileNotFoundException: E:\Knowledge\Stm32f407xx Discovery\workspace\stm3
 	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1021)
 	at org.eclipse.debug.internal.ui.DebugUIPlugin$2.run(DebugUIPlugin.java:1224)
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-03-21 11:05:43.447
+!MESSAGE Indexed 'stm32f4xx_drivers' (5 sources, 61 headers) in 0.803 sec: 2,642 declarations; 4,706 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.027%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2021-03-21 11:06:54.167
+!MESSAGE Indexed '000Hello' (0 sources, 0 headers) in 0 sec: 0 declarations; 0 references; 0 unresolved inclusions; 0 syntax errors; 0 unresolved names (0%)
