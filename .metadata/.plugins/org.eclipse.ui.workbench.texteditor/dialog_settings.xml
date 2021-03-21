@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="SYSCFG_BASEADDR"/>
+		<item key="selection" value=""/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="initialise_monitor_handles"/>
+			<item value="_close"/>
+			<item value="Rc"/>
+			<item value="null"/>
+			<item value="monitor"/>
 			<item value="SYSCFG_BASEADDR"/>
 			<item value="SYSCFG_RegDef_t"/>
 			<item value="EXTI_BASEADDR"/>
@@ -18,10 +23,9 @@
 			<item value="ITM"/>
 			<item value="IT"/>
 			<item value="write"/>
-			<item value="printf"/>
-			<item value="printf("/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

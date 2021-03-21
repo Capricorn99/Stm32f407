@@ -1,32 +1,52 @@
-23:08:38 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
-make -j4 all 
-arm-none-eabi-gcc "../Src/008spi_cmd_handling.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I"E:/Knowledge/Stm32f407xx Discovery/workspace/stm32f4xx_drivers/drivers/Inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/008spi_cmd_handling.d" -MT"Src/008spi_cmd_handling.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/008spi_cmd_handling.o"
-../Src/008spi_cmd_handling.c: In function 'main':
-../Src/008spi_cmd_handling.c:184:3: warning: implicit declaration of function 'SPI_ReceiveData'; did you mean 'SPI_ReceiData'? [-Wimplicit-function-declaration]
-   SPI_ReceiveData(SPI2,&dummy_read,1);
-   ^~~~~~~~~~~~~~~
-   SPI_ReceiData
-../Src/008spi_cmd_handling.c:385:10: warning: implicit declaration of function 'SPI_GetFlagStatus' [-Wimplicit-function-declaration]
-   while( SPI_GetFlagStatus(SPI2,SPI_BUSY_FLAG) );
-          ^~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "stm32f4xx_drivers.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\stm32f4xx_drivers\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="stm32f4xx_drivers.map" -Wl,--gc-sections -static -specs=rdimon.specs -lc -lrdimon --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: stm32f4xx_drivers.elf
+11:03:47 **** Clean-only build of configuration Debug for project 000Hello ****
+make -j4 clean 
+rm -rf *
+rm: can't remove '000Hello.elf': Permission denied
+make: [makefile:86: clean] Error 1 (ignored)
  
-arm-none-eabi-objdump -h -S  stm32f4xx_drivers.elf  > "stm32f4xx_drivers.list"
-arm-none-eabi-objcopy  -O binary  stm32f4xx_drivers.elf  "stm32f4xx_drivers.bin"
-arm-none-eabi-size   stm32f4xx_drivers.elf 
+11:03:48 **** Incremental Build of configuration Debug for project 000Hello ****
+make -j4 all 
+arm-none-eabi-gcc "../drivers/Src/stm32f4xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_gpio_driver.d" -MT"drivers/Src/stm32f4xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f4xx_gpio_driver.o"
+arm-none-eabi-gcc "../drivers/Src/stm32f4xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_spi_driver.d" -MT"drivers/Src/stm32f4xx_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f4xx_spi_driver.o"
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/009spi_message_rcv_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/009spi_message_rcv_it.d" -MT"Src/009spi_message_rcv_it.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/009spi_message_rcv_it.o"
+../drivers/Src/stm32f4xx_gpio_driver.c: In function 'GPIO_Init':
+../drivers/Src/stm32f4xx_gpio_driver.c:114:3: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  114 |   printf("Gia tri thanh ghi MODER %x \n", pGPIOHandle ->pGPIOx ->MODER);
+      |   ^~~~~~
+../drivers/Src/stm32f4xx_gpio_driver.c:114:3: warning: incompatible implicit declaration of built-in function 'printf'
+../drivers/Src/stm32f4xx_gpio_driver.c:11:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   10 | #include "stm32f4xx_gpio_driver.h"
+  +++ |+#include <stdio.h>
+   11 | 
+../drivers/Src/stm32f4xx_gpio_driver.c:114:36: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'uint32_t' {aka 'volatile long unsigned int'} [-Wformat=]
+  114 |   printf("Gia tri thanh ghi MODER %x \n", pGPIOHandle ->pGPIOx ->MODER);
+      |                                   ~^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                    |                           |
+      |                                    unsigned int                uint32_t {aka volatile long unsigned int}
+      |                                   %lx
+../Src/009spi_message_rcv_it.c: In function 'main':
+../Src/009spi_message_rcv_it.c:160:42: warning: passing argument 2 of 'SPI_ReceiveDataIT' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
+  160 |    while ( SPI_ReceiveDataIT(&SPI2handle,&ReadByte,1) == SPI_BUSY_IN_RX );
+      |                                          ^~~~~~~~~
+In file included from E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc/stm32f4xx.h:393,
+                 from ../Src/009spi_message_rcv_it.c:24:
+E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc/stm32f4xx_spi_driver.h:136:62: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'volatile char *'
+  136 | uint8_t SPI_ReceiveDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len);
+      |                                                     ~~~~~~~~~^~~~~~~~~
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc -o "000Hello.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="000Hello.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 000Hello.elf
+ 
+arm-none-eabi-size   000Hello.elf 
+arm-none-eabi-objdump -h -S  000Hello.elf  > "000Hello.list"
+arm-none-eabi-objcopy  -O binary  000Hello.elf  "000Hello.bin"
    text	   data	    bss	    dec	    hex	filename
-   9812	    120	   1752	  11684	   2da4	stm32f4xx_drivers.elf
+   9256	    108	   2140	  11504	   2cf0	000Hello.elf
 Finished building: default.size.stdout
  
-Finished building: stm32f4xx_drivers.bin
-Finished building: stm32f4xx_drivers.list
+Finished building: 000Hello.bin
+Finished building: 000Hello.list
  
- 
-23:08:41 **** Incremental Build of configuration Debug for project stm32f4xx_drivers ****
-make -j4 all 
-arm-none-eabi-size   stm32f4xx_drivers.elf 
-   text	   data	    bss	    dec	    hex	filename
-   9812	    120	   1752	  11684	   2da4	stm32f4xx_drivers.elf
-Finished building: default.size.stdout
  
