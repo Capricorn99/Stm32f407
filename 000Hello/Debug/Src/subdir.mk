@@ -5,24 +5,24 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Src/009spi_message_rcv_it.c \
+../Src/004HSI_measurement.c \
 ../Src/syscalls.c \
 ../Src/sysmem.c 
 
 OBJS += \
-./Src/009spi_message_rcv_it.o \
+./Src/004HSI_measurement.o \
 ./Src/syscalls.o \
 ./Src/sysmem.o 
 
 C_DEPS += \
-./Src/009spi_message_rcv_it.d \
+./Src/004HSI_measurement.d \
 ./Src/syscalls.d \
 ./Src/sysmem.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Src/009spi_message_rcv_it.o: ../Src/009spi_message_rcv_it.c Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/009spi_message_rcv_it.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
+Src/004HSI_measurement.o: ../Src/004HSI_measurement.c Src/subdir.mk
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/004HSI_measurement.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Src/syscalls.o: ../Src/syscalls.c Src/subdir.mk
 	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"$@" --specs=nano.specs -mfloat-abi=soft -mthumb -o "$@"
 Src/sysmem.o: ../Src/sysmem.c Src/subdir.mk

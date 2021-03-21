@@ -143,6 +143,12 @@
                         					
                     </folderInfo>
                     					
+                    <fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.1433056827" name="009spi_message_rcv_it.c" rcbsApplicability="disable" resourcePath="Src/009spi_message_rcv_it.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.333531783">
+                        						
+                        <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.333531783" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361"/>
+                        					
+                    </fileInfo>
+                    					
                     <folderInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.1442008022" name="/" resourcePath="drivers">
                         						
                         <toolChain id="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug.1994396490" name="MCU ARM GCC" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.toolchain.exe.debug" unusedChildren="">
@@ -209,7 +215,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Inc"/>
                         						
-                        <entry excluding="008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|005button_interrupt.c|003led_button_ext.c|001led_toggle.c|002led_button.c|main.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
+                        <entry excluding="009spi_message_rcv_it.c|008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|005button_interrupt.c|003led_button_ext.c|001led_toggle.c|002led_button.c|main.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Startup"/>
                         						
