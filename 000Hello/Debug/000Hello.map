@@ -287,7 +287,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x16 Src/syscalls.o
  .debug_macro   0x0000000000000000       0xce Src/syscalls.o
  .debug_line    0x0000000000000000      0x830 Src/syscalls.o
- .debug_str     0x0000000000000000     0x8f69 Src/syscalls.o
+ .debug_str     0x0000000000000000     0x8f61 Src/syscalls.o
  .comment       0x0000000000000000       0x54 Src/syscalls.o
  .debug_frame   0x0000000000000000      0x2d4 Src/syscalls.o
  .ARM.attributes
@@ -349,7 +349,7 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0x6a Src/sysmem.o
  .debug_macro   0x0000000000000000      0x1df Src/sysmem.o
  .debug_line    0x0000000000000000      0x4f3 Src/sysmem.o
- .debug_str     0x0000000000000000     0x6277 Src/sysmem.o
+ .debug_str     0x0000000000000000     0x626f Src/sysmem.o
  .comment       0x0000000000000000       0x54 Src/sysmem.o
  .debug_frame   0x0000000000000000       0x34 Src/sysmem.o
  .ARM.attributes
@@ -396,8 +396,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000       0xc4 drivers/Src/ade7753.o
  .debug_macro   0x0000000000000000       0xc4 drivers/Src/ade7753.o
  .debug_macro   0x0000000000000000      0x100 drivers/Src/ade7753.o
- .debug_line    0x0000000000000000      0x47b drivers/Src/ade7753.o
- .debug_str     0x0000000000000000     0x5f7b drivers/Src/ade7753.o
+ .debug_line    0x0000000000000000      0x473 drivers/Src/ade7753.o
+ .debug_str     0x0000000000000000     0x5f73 drivers/Src/ade7753.o
  .comment       0x0000000000000000       0x54 drivers/Src/ade7753.o
  .debug_frame   0x0000000000000000       0x58 drivers/Src/ade7753.o
  .ARM.attributes
@@ -458,8 +458,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x462 drivers/Src/stm32f4xx_gpio_driver.o
  .debug_macro   0x0000000000000000       0xbe drivers/Src/stm32f4xx_gpio_driver.o
  .debug_macro   0x0000000000000000       0xc4 drivers/Src/stm32f4xx_gpio_driver.o
- .debug_line    0x0000000000000000      0x9b2 drivers/Src/stm32f4xx_gpio_driver.o
- .debug_str     0x0000000000000000     0x6036 drivers/Src/stm32f4xx_gpio_driver.o
+ .debug_line    0x0000000000000000      0x9aa drivers/Src/stm32f4xx_gpio_driver.o
+ .debug_str     0x0000000000000000     0x602e drivers/Src/stm32f4xx_gpio_driver.o
  .comment       0x0000000000000000       0x54 drivers/Src/stm32f4xx_gpio_driver.o
  .debug_frame   0x0000000000000000      0x1c8 drivers/Src/stm32f4xx_gpio_driver.o
  .ARM.attributes
@@ -537,8 +537,8 @@ Discarded input sections
  .debug_macro   0x0000000000000000      0x462 drivers/Src/stm32f4xx_spi_driver.o
  .debug_macro   0x0000000000000000       0xc4 drivers/Src/stm32f4xx_spi_driver.o
  .debug_macro   0x0000000000000000       0xbe drivers/Src/stm32f4xx_spi_driver.o
- .debug_line    0x0000000000000000      0x938 drivers/Src/stm32f4xx_spi_driver.o
- .debug_str     0x0000000000000000     0x60b0 drivers/Src/stm32f4xx_spi_driver.o
+ .debug_line    0x0000000000000000      0x930 drivers/Src/stm32f4xx_spi_driver.o
+ .debug_str     0x0000000000000000     0x60a8 drivers/Src/stm32f4xx_spi_driver.o
  .comment       0x0000000000000000       0x54 drivers/Src/stm32f4xx_spi_driver.o
  .debug_frame   0x0000000000000000      0x314 drivers/Src/stm32f4xx_spi_driver.o
  .ARM.attributes
@@ -1249,15 +1249,15 @@ LOAD c:/st/stm32cubeide_1.5.1/stm32cubeide/plugins/com.st.stm32cube.ide.mcu.exte
  .debug_macro   0x00000000000022c4       0xc4 Src/100ADE_comunicate.o
  .debug_macro   0x0000000000002388      0x106 Src/100ADE_comunicate.o
 
-.debug_line     0x0000000000000000      0x757
- .debug_line    0x0000000000000000      0x6d3 Src/100ADE_comunicate.o
- .debug_line    0x00000000000006d3       0x84 Startup/startup_stm32f407vgtx.o
+.debug_line     0x0000000000000000      0x74f
+ .debug_line    0x0000000000000000      0x6cb Src/100ADE_comunicate.o
+ .debug_line    0x00000000000006cb       0x84 Startup/startup_stm32f407vgtx.o
 
-.debug_str      0x0000000000000000     0xa00b
- .debug_str     0x0000000000000000     0x9fda Src/100ADE_comunicate.o
-                                       0xa23c (size before relaxing)
- .debug_str     0x0000000000009fda       0x31 Startup/startup_stm32f407vgtx.o
-                                         0x6d (size before relaxing)
+.debug_str      0x0000000000000000     0xa003
+ .debug_str     0x0000000000000000     0x9fd2 Src/100ADE_comunicate.o
+                                       0xa234 (size before relaxing)
+ .debug_str     0x0000000000009fd2       0x31 Startup/startup_stm32f407vgtx.o
+                                         0x65 (size before relaxing)
 
 .comment        0x0000000000000000       0x53
  .comment       0x0000000000000000       0x53 Src/100ADE_comunicate.o
