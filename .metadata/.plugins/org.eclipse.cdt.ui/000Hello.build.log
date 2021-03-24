@@ -1,10 +1,20 @@
-12:25:36 **** Incremental Build of configuration Debug for project 000Hello ****
+00:01:29 **** Incremental Build of configuration Debug for project 000Hello ****
 make -j4 all 
+arm-none-eabi-gcc "../Src/100ADE_comunicate.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/100ADE_comunicate.d" -MT"Src/100ADE_comunicate.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/100ADE_comunicate.o"
+arm-none-eabi-gcc -o "000Hello.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="000Hello.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 000Hello.elf
+ 
 arm-none-eabi-size   000Hello.elf 
+arm-none-eabi-objdump -h -S  000Hello.elf  > "000Hello.list"
+arm-none-eabi-objcopy  -O binary  000Hello.elf  "000Hello.bin"
    text	   data	    bss	    dec	    hex	filename
-    780	      8	   1568	   2356	    934	000Hello.elf
+    684	      8	   1568	   2260	    8d4	000Hello.elf
 Finished building: default.size.stdout
  
+Finished building: 000Hello.list
+Finished building: 000Hello.bin
+ 
+ 
 
-12:25:37 Build Finished. 0 errors, 0 warnings. (took 282ms)
+00:01:30 Build Finished. 0 errors, 0 warnings. (took 800ms)
 

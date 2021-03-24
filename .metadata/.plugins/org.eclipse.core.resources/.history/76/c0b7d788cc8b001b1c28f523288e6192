@@ -1,0 +1,72 @@
+/*
+ * ade7753.c
+ *
+ *  Created on: Mar 22, 2021
+ *      Author: Admin
+ */
+
+
+#include "ade7753.h"
+
+/*********************************************************************
+ * @fn      		  - ADE_ReadData
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+ */
+
+void ADE_ReadData (uint8_t address,uint32_t bytes_to_read)
+{
+	long data = 0;
+	byte reader_buf = 0;
+	SPI_PeripheralControl(SPI2,ENABLE); //SS pin pull to low
+	SPI_SendData(SPI2,&address,1);      //send address
+	for (int i = 1; i <= bytes_to_read; i++)
+	{
+		reader_buf = spi_transfer(0xFF); //get data byte
+	//    Serial.println(reader_buf, BIN);
+		data |= reader_buf;
+	    if (i < bytes_to_read) data = data << 8;
+	  }
+	//  Serial.print("completed. data: ");
+	//  Serial.println(data, BIN);
+	  SPI_PeripheralControl(SPI2,DISABLE); //SS pin pull to high
+
+	return data;
+}
+
+/*********************************************************************
+ * @fn      		  - ADE_WriteData
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+ */
+
+//thieu loai SPI và delay
+
+void ADE_WriteData(uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write) {
+  uint8_t write_cmd = 0x80;
+  uint8_t write_data = 0x00;
+  address |= write_cmd;
+  SPI_PeripheralControl(SPI2,ENABLE); //SS pin pull to low
+  SPI_SendData(SPI2,&address,1);      //send address
+
+  //here there should be a t7 delay, however long that is
+  SPI_SendData(SPI2,&write_buffer,bytes_to_write);
+  SPI_PeripheralControl(SPI2,DISABLE );; //SS pin pull to high
+}
+

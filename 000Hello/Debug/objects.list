@@ -1,6 +1,7 @@
-"Src/004HSI_measurement.o"
+"Src/100ADE_comunicate.o"
 "Src/syscalls.o"
 "Src/sysmem.o"
 "Startup/startup_stm32f407vgtx.o"
+"drivers/Src/ade7753.o"
 "drivers/Src/stm32f4xx_gpio_driver.o"
 "drivers/Src/stm32f4xx_spi_driver.o"

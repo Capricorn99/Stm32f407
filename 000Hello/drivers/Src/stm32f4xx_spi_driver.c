@@ -131,9 +131,9 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	}
 	//3. configure the spi serial clock speed (baud rate)
 	tempreg |= pSPIHandle->SPIConfig.SPI_SclkSpeed << SPI_CR1_BR;
-	//4. configure the spi serial clock speed (baud rate)
+	//4.  Configure the DFF
 	tempreg |= pSPIHandle->SPIConfig.SPI_DFF << SPI_CR1_DFF;
-	//5. configure the spi serial clock speed (baud rate)
+	//5. configure the CPOL
 	tempreg |= pSPIHandle->SPIConfig.SPI_CPOL << SPI_CR1_CPOL;
 	//6 . configure the CPHA
 	tempreg |= pSPIHandle->SPIConfig.SPI_CPHA << SPI_CR1_CPHA;
