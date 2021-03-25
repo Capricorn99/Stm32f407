@@ -82,6 +82,28 @@ void SPI2_Inits(void)
 
 int main (void)
 {
+	//this function is used to initialize the GPIO pins to behave as SPI2 pins
+	SPI2_GPIOInits();
+
+	//This function is used to initialize the SPI2 peripheral parameters
+	SPI2_Inits();
+	/*
+	* making SSOE 1 does NSS output enable.
+	* The NSS pin is automatically managed by the hardware.
+	* i.e when SPE=1 , NSS will be pulled to low
+	* and NSS pin will be high when SPE=0
+	*/
+	SPI_SSOEConfig(SPI2,ENABLE);
+	uint8_t a=0;
+
+	while(1)
+	{
+		ADE_ReadData(SPI2, &a, MODE, 2);
+		printf("DATA : %x \n", a);
+
+		//void ADE_WriteData(SPI_RegDef_t *pSPIx,uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
+	}
+
 
 }
 

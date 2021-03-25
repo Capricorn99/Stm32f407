@@ -111,7 +111,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		pGPIOHandle ->pGPIOx ->MODER &= ~(0x03 << pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber); //clearing
 		pGPIOHandle ->pGPIOx ->MODER |= temp; //setting
 
-		printf("Gia tri thanh ghi MODER %x \n", pGPIOHandle ->pGPIOx ->MODER);
+		//printf("Gia tri thanh ghi MODER %x \n", pGPIOHandle ->pGPIOx ->MODER);
 
 
 

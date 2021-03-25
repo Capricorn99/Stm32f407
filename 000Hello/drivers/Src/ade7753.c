@@ -25,19 +25,19 @@
 
 
 
-void ADE_ReadData (SPI_RegDef_t *pSPIx,uint8_t *pRxBuffer,uint8_t address,uint32_t bytes_to_read)
+void ADE_ReadData (SPI_RegDef_t *pSPIx,uint8_t *pRxBuffer, uint8_t address, uint32_t bytes_to_read)
 {
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_read;
 	SPI_PeripheralControl(pSPIx,ENABLE); //SS pin pull to low
-	SPI_SendData(pSPIx,&address,1);      //send address
-	SPI_ReceiveData(pSPIx,&dummy_read,1);	//clear RXNE flag
+	SPI_SendData(pSPIx, &address, 1);      //send address
+	SPI_ReceiveData(pSPIx, &dummy_read, 1);	//clear RXNE flag
 	for (int i = 1; i <= bytes_to_read; i++)
 	{
-		SPI_SendData(pSPIx,&dummy_write,1);	//Send some dummy byte to fetch the response from the slave
-		SPI_ReceiveData(pSPIx,pRxBuffer,bytes_to_read); //luu data received
-	    }
-	  SPI_PeripheralControl(pSPIx,DISABLE); //SS pin pull to high
+		SPI_SendData(pSPIx, &dummy_write, 1);	//Send some dummy byte to fetch the response from the slave
+		SPI_ReceiveData(pSPIx, pRxBuffer, bytes_to_read); //luu data received
+	}
+	SPI_PeripheralControl(pSPIx, DISABLE); //SS pin pull to high
 }
 
 /*********************************************************************

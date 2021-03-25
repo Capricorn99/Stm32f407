@@ -1,4 +1,4 @@
 100ADE_comunicate.c:27:6:delay	16	static
 100ADE_comunicate.c:40:6:SPI2_GPIOInits	24	static
 100ADE_comunicate.c:69:6:SPI2_Inits	8	static
-100ADE_comunicate.c:83:5:main	4	static
+100ADE_comunicate.c:83:5:main	16	static
