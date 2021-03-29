@@ -17,6 +17,7 @@ void SPI2_GPIOInits(void)
 {
 
 	GPIO_Handle_t SPIPins;
+
 	SPIPins.pGPIOx = GPIOB;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
@@ -37,6 +38,7 @@ void SPI2_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//NSS
+//	SPIPins.pGPIOx = GPIOA;
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
 	GPIO_Init(&SPIPins);
 
@@ -76,8 +78,7 @@ void GPIO_ButtonInit(void)
 
 int main(void)
 {
-	char user_data[] ="Hello word ";
-
+	char user_data[] ="12345";
 	GPIO_ButtonInit();
 
 	//this function is used to initialize the GPIO pins to behave as SPI2 pins

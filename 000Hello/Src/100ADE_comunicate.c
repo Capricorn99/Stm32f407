@@ -62,7 +62,7 @@ void SPI2_GPIOInits(void)
 
 
 	//NSS
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+ 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
 	GPIO_Init(&SPIPins);
 }
 
@@ -71,7 +71,7 @@ void SPI2_Inits(void)
 	SPI2handle.pSPIx = SPI2;
 	SPI2handle.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;			//full duplex
 	SPI2handle.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;	//STM as master
-	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV2;		// clock 8MHz
+	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV4;		// clock 4MHz
 	SPI2handle.SPIConfig.SPI_DFF = SPI_DFF_8BITS;					// mỗi lần truyền 1 byte
 	SPI2handle.SPIConfig.SPI_CPOL = SPI_CPOL_LOW;					//CPOL 0
 	SPI2handle.SPIConfig.SPI_CPHA = SPI_CPHA_HIGH;					//CPHA 1
@@ -94,15 +94,12 @@ int main (void)
 	* and NSS pin will be high when SPE=0
 	*/
 	SPI_SSOEConfig(SPI2,ENABLE);
-	uint8_t a=0;
+	uint8_t data = 0;
 
-	while(1)
-	{
-		ADE_ReadData(SPI2, &a, MODE, 2);
-		printf("DATA : %x \n", a);
+	ADE_ReadData(SPI2, &data, MODE, 2);
+	printf("DATA : %x \n", data);
 
-		//void ADE_WriteData(SPI_RegDef_t *pSPIx,uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
-	}
+	//void ADE_WriteData(SPI_RegDef_t *pSPIx,uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
 
 
 }

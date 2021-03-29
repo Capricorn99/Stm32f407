@@ -1,35 +1,79 @@
-17:21:46 **** Build of configuration Debug for project 000Hello ****
+10:09:49 **** Incremental Build of configuration Debug for project 000Hello ****
 make -j4 all 
-arm-none-eabi-gcc "../drivers/Src/ade7753.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/ade7753.d" -MT"drivers/Src/ade7753.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/ade7753.o"
-arm-none-eabi-gcc "../drivers/Src/stm32f4xx_gpio_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_gpio_driver.d" -MT"drivers/Src/stm32f4xx_gpio_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f4xx_gpio_driver.o"
 arm-none-eabi-gcc "../drivers/Src/stm32f4xx_spi_driver.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"drivers/Src/stm32f4xx_spi_driver.d" -MT"drivers/Src/stm32f4xx_spi_driver.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "drivers/Src/stm32f4xx_spi_driver.o"
-arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
-../drivers/Src/ade7753.c: In function 'ADE_ReadData':
-../drivers/Src/ade7753.c:34:2: warning: implicit declaration of function 'SPI_ReceiveData'; did you mean 'SPI_ReceiveDataIT'? [-Wimplicit-function-declaration]
-   34 |  SPI_ReceiveData(pSPIx, &dummy_read, 1); //clear RXNE flag
-      |  ^~~~~~~~~~~~~~~
-      |  SPI_ReceiveDataIT
-arm-none-eabi-gcc "../Src/100ADE_comunicate.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/100ADE_comunicate.d" -MT"Src/100ADE_comunicate.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/100ADE_comunicate.o"
-arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/syscalls.o"
-arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/sysmem.o"
+arm-none-eabi-gcc "../Src/008spi_cmd_handling.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DSTM32 -DSTM32F407G_DISC1 -DSTM32F4 -DSTM32F407VGTx -DDEBUG -c -I../Inc -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Inc" -I"E:/Knowledge/Stm32f407xx Discovery/workspace/000Hello/drivers/Src" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Src/008spi_cmd_handling.d" -MT"Src/008spi_cmd_handling.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Src/008spi_cmd_handling.o"
+../drivers/Src/stm32f4xx_spi_driver.c: In function 'SPI_GetFlagStatus':
+../drivers/Src/stm32f4xx_spi_driver.c:158:2: warning: implicit declaration of function 'printf' [-Wimplicit-function-declaration]
+  158 |  printf(" %x \n",pSPIx->SR & FlagName);
+      |  ^~~~~~
+../drivers/Src/stm32f4xx_spi_driver.c:158:2: warning: incompatible implicit declaration of built-in function 'printf'
+../drivers/Src/stm32f4xx_spi_driver.c:13:1: note: include '<stdio.h>' or provide a declaration of 'printf'
+   12 | #include "stm32f4xx_spi_driver.h"
+  +++ |+#include <stdio.h>
+   13 | 
+../drivers/Src/stm32f4xx_spi_driver.c:158:12: warning: format '%x' expects argument of type 'unsigned int', but argument 2 has type 'long unsigned int' [-Wformat=]
+  158 |  printf(" %x \n",pSPIx->SR & FlagName);
+      |           ~^     ~~~~~~~~~~~~~~~~~~~~
+      |            |               |
+      |            unsigned int    long unsigned int
+      |           %lx
+../drivers/Src/stm32f4xx_spi_driver.c: In function 'SPI_SendData':
+../drivers/Src/stm32f4xx_spi_driver.c:179:3: warning: incompatible implicit declaration of built-in function 'printf'
+  179 |   printf("TXE \n");
+      |   ^~~~~~
+../drivers/Src/stm32f4xx_spi_driver.c:179:3: note: include '<stdio.h>' or provide a declaration of 'printf'
+../drivers/Src/stm32f4xx_spi_driver.c:177:11: warning: unused variable 'temp' [-Wunused-variable]
+  177 |   uint8_t temp = *pTxBuffer;
+      |           ^~~~
+../drivers/Src/stm32f4xx_spi_driver.c: In function 'SPI_ReceiveData':
+../drivers/Src/stm32f4xx_spi_driver.c:221:4: warning: incompatible implicit declaration of built-in function 'printf'
+  221 |    printf("RXNE \n");
+      |    ^~~~~~
+../drivers/Src/stm32f4xx_spi_driver.c:221:4: note: include '<stdio.h>' or provide a declaration of 'printf'
+../Src/008spi_cmd_handling.c: In function 'main':
+../Src/008spi_cmd_handling.c:176:3: warning: implicit declaration of function 'SPI_ReceiveData'; did you mean 'SPI_ReceiveDataIT'? [-Wimplicit-function-declaration]
+  176 |   SPI_ReceiveData(SPI2,&dummy_read,1);
+      |   ^~~~~~~~~~~~~~~
+      |   SPI_ReceiveDataIT
 arm-none-eabi-gcc -o "000Hello.elf" @"objects.list"   -mcpu=cortex-m4 -T"E:\Knowledge\Stm32f407xx Discovery\workspace\000Hello\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="000Hello.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: 000Hello.elf
  
-arm-none-eabi-size   000Hello.elf 
 arm-none-eabi-objdump -h -S  000Hello.elf  > "000Hello.list"
 arm-none-eabi-objcopy  -O binary  000Hello.elf  "000Hello.bin"
+arm-none-eabi-size   000Hello.elf 
    text	   data	    bss	    dec	    hex	filename
-   7508	    108	   2132	   9748	   2614	000Hello.elf
+   9080	    108	   1596	  10784	   2a20	000Hello.elf
 Finished building: default.size.stdout
  
-Finished building: 000Hello.list
 Finished building: 000Hello.bin
+Finished building: 000Hello.list
  
  
-17:21:52 **** Incremental Build of configuration Debug for project 000Hello ****
+10:09:53 **** Incremental Build of configuration Debug for project 000Hello ****
 make -j4 all 
 arm-none-eabi-size   000Hello.elf 
    text	   data	    bss	    dec	    hex	filename
-   7508	    108	   2132	   9748	   2614	000Hello.elf
+   9080	    108	   1596	  10784	   2a20	000Hello.elf
+Finished building: default.size.stdout
+ 
+10:11:33 **** Incremental Build of configuration Debug for project 000Hello ****
+make -j4 all 
+arm-none-eabi-size   000Hello.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9080	    108	   1596	  10784	   2a20	000Hello.elf
+Finished building: default.size.stdout
+ 
+10:12:11 **** Incremental Build of configuration Debug for project 000Hello ****
+make -j4 all 
+arm-none-eabi-size   000Hello.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9080	    108	   1596	  10784	   2a20	000Hello.elf
+Finished building: default.size.stdout
+ 
+10:14:37 **** Incremental Build of configuration Debug for project 000Hello ****
+make -j4 all 
+arm-none-eabi-size   000Hello.elf 
+   text	   data	    bss	    dec	    hex	filename
+   9080	    108	   1596	  10784	   2a20	000Hello.elf
 Finished building: default.size.stdout
  

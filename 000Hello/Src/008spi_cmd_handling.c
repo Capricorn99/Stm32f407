@@ -1,16 +1,8 @@
-/*
- * 008spi_cmd_handling.c
- *
- *  Created on: Mar 17, 2021
- *      Author: Admin
- */
-
-
-#include <stdio.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
 #include "stm32f4xx.h"
 
-extern void initialise_monitor_handles();
+//extern void initialise_monitor_handles();
 
 //command codes
 #define COMMAND_LED_CTRL      		0x50
@@ -53,7 +45,7 @@ void SPI2_GPIOInits(void)
 	SPIPins.pGPIOx = GPIOB;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
-	SPIPins.GPIO_PinConfig.GPIO_PinoType= GPIO_OP_TYPE_PP;
+	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	SPIPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 
@@ -69,9 +61,11 @@ void SPI2_GPIOInits(void)
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
 	GPIO_Init(&SPIPins);
 
+
 	//NSS
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
 	GPIO_Init(&SPIPins);
+
 
 }
 
@@ -83,7 +77,7 @@ void SPI2_Inits(void)
 	SPI2handle.pSPIx = SPI2;
 	SPI2handle.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;
 	SPI2handle.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;
-	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV2;
+	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV8; //2MHz
 	SPI2handle.SPIConfig.SPI_CPOL = SPI_CPOL_LOW;
 	SPI2handle.SPIConfig.SPI_CPHA = SPI_CPHA_LOW;
 	SPI2handle.SPIConfig.SPI_SSM = SPI_SSM_DI; //Hardware slave management enabled for NSS pin
@@ -133,10 +127,10 @@ uint8_t SPI_VerifyResponse(uint8_t ackbyte)
 
 int main(void)
 {
-	initialise_monitor_handles();
-
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_read;
+
+	//initialise_monitor_handles();
 
 	printf("Application is running\n");
 
@@ -196,7 +190,7 @@ int main(void)
 			//send arguments
 			SPI_SendData(SPI2,args,2);
 			// dummy read
-			SPI_ReceiveData(SPI2,args,2);
+			SPI_ReceiveData(SPI2,args,1);
 			printf("COMMAND_LED_CTRL Executed\n");
 		}
 		//end of COMMAND_LED_CTRL
@@ -219,9 +213,6 @@ int main(void)
 
 		//do dummy read to clear off the RXNE
 		SPI_ReceiveData(SPI2,&dummy_read,1);
-
-		//insert some delay so that slave can ready with the data
-		delay();
 
 
 		//Send some dummy byte to fetch the response from the slave
