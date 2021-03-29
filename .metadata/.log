@@ -2074,3 +2074,6 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2021-03-29 09:42:32.547
 !MESSAGE Existing sessions are:
+
+!ENTRY org.eclipse.core.jobs 2 2 2021-03-29 11:53:46.387
+!MESSAGE Job found still running after platform shutdown.  Jobs should be canceled by the plugin that scheduled them during shutdown: org.eclipse.cdt.dsf.gdb.internal.ui.console.GdbBasicCliConsole$InputReadJob
