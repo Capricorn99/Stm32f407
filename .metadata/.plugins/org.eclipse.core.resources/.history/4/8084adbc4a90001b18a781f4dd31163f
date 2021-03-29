@@ -189,7 +189,8 @@ int main(void)
 
 			//send arguments
 			SPI_SendData(SPI2,args,2);
-
+			// dummy read
+			SPI_ReceiveData(SPI2,args,1);
 			printf("COMMAND_LED_CTRL Executed\n");
 		}
 		//end of COMMAND_LED_CTRL
