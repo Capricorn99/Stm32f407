@@ -25,16 +25,22 @@
 
 
 
-void ADE_ReadData (SPI_RegDef_t *pSPIx,uint8_t *pRxBuffer, uint8_t address, uint32_t bytes_to_read)
+uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read)
 {
+	uint32_t data = 0;
 	uint8_t dummy_write = 0xff;
-	uint8_t dummy_read;
+
 	SPI_PeripheralControl(pSPIx,ENABLE); //SS pin pull to low
-	SPI_SendData(pSPIx, &address, 1);      //send address
-	SPI_ReceiveData(pSPIx, &dummy_read, 1);	//clear RXNE flag
-	SPI_SendData(pSPIx, &dummy_write, 1);	//Send some dummy byte to fetch the response from the slave
-	SPI_ReceiveData(pSPIx, pRxBuffer, bytes_to_read); //luu data received
+
+	SPI_Transfer(pSPIx, &addr);
+	for(uint32_t i = 0; i < bytes_to_read; i++)
+	{
+		data <<= 8;
+		data |= SPI_Transfer(pSPIx, &dummy_write);
+		printf("%x\n", data);
+	}
 	SPI_PeripheralControl(pSPIx, DISABLE); //SS pin pull to high
+	return data;
 }
 
 /*********************************************************************
@@ -51,16 +57,20 @@ void ADE_ReadData (SPI_RegDef_t *pSPIx,uint8_t *pRxBuffer, uint8_t address, uint
  * @Note              -
  */
 
-//thieu loai SPI và delay
+uint32_t ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write)
+{
+	uint8_t data = 0;
+	uint8_t write_cmd = 0x80;
+	address |= write_cmd;
+	uint8_t dummy_write = 0xff;
+	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
+	SPI_Transfer(pSPIx, &address);
+	for(uint32_t i = 0; i < bytes_to_write; i++)
+	{
+		data = (uint8_t)(write_buffer >> 8*(bytes_to_write - i - 1));
+		SPI_Transfer(pSPIx, &data);
+	}
+	SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
 
-void ADE_WriteData(SPI_RegDef_t *pSPIx,uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write) {
-  uint8_t write_cmd = 0x80;
-  address |= write_cmd;
-  SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
-  SPI_SendData(pSPIx, &address, 1);      //send address
-
-  //here there should be a t7 delay, however long that is
-  SPI_SendData(pSPIx, (uint8_t *)&write_buffer, bytes_to_write);
-  SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
+	return ADE_ReadData(pSPIx, &address, bytes_to_write);
 }
-

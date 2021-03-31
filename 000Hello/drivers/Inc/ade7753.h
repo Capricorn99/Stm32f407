@@ -66,7 +66,7 @@
 #define CHKSUM      0x3E
 #define DIEREV      0x3F
 
-void ADE_ReadData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint8_t address, uint32_t bytes_to_read);
+uint32_t ADE_ReadData(SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read);
 void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
 
 #endif /* INC_ADE7753_H_ */

@@ -155,7 +155,7 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx);
 
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName)
 {
-	printf(" %x \n",pSPIx->SR & FlagName);
+//	printf(" %x \n",pSPIx->SR & FlagName);
 	if(pSPIx->SR & FlagName)
 	{
 		return FLAG_SET;
@@ -236,6 +236,13 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 			pRxBuffer++;
 		}
 
+}
+
+uint8_t SPI_Transfer(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer)
+{
+	pSPIx->DR = *pTxBuffer;
+	while(SPI_GetFlagStatus(pSPIx, SPI_RXNE_FLAG) == FLAG_RESET);
+	return pSPIx->DR;
 }
 
 /**************************

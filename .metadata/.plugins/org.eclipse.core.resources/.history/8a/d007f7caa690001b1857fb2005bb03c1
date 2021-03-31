@@ -1,0 +1,75 @@
+/*
+ * ade7753.c
+ *
+ *  Created on: Mar 22, 2021
+ *      Author: Admin
+ */
+
+
+#include "ade7753.h"
+
+/*********************************************************************
+ * @fn      		  - ADE_ReadData
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+ */
+
+
+
+
+void ADE_ReadData (SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint8_t addr, uint32_t bytes_to_read)
+{
+	uint8_t dummy_write = 0xff;
+	uint8_t dummy_read;
+	SPI_PeripheralControl(pSPIx,ENABLE); //SS pin pull to low
+//	SPI_SendData(pSPIx, &address, 1);      //send address
+//	SPI_ReceiveData(pSPIx, &dummy_read, 1);	//clear RXNE flag
+//	SPI_SendData(pSPIx, &dummy_write, 1);	//Send some dummy byte to fetch the response from the slave
+//	SPI_ReceiveData(pSPIx, pRxBuffer, bytes_to_read); //luu data received
+
+
+	SPI_Transfer(pSPIx, &addr, &dummy_read);
+	for(uint32_t i = 0; i < bytes_to_read; i++)
+	{
+		SPI_Transfer(pSPIx, &dummy_write, pRxBuffer);
+		pRxBuffer++;
+		printf("%x\n", *pRxBuffer);
+	}
+	SPI_PeripheralControl(pSPIx, DISABLE); //SS pin pull to high
+}
+
+/*********************************************************************
+ * @fn      		  - ADE_WriteData
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @ return            -
+ *
+ * @Note              -
+ */
+
+//thieu loai SPI và delay
+
+void ADE_WriteData(SPI_RegDef_t *pSPIx,uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write) {
+  uint8_t write_cmd = 0x80;
+  address |= write_cmd;
+  SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
+  SPI_SendData(pSPIx, &address, 1);      //send address
+
+  //here there should be a t7 delay, however long that is
+  SPI_SendData(pSPIx, (uint8_t *)&write_buffer, bytes_to_write);
+  SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
+}
+
