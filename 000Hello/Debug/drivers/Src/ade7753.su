@@ -1,2 +1,2 @@
 ade7753.c:28:10:ADE_ReadData	40	static
-ade7753.c:66:6:ADE_WriteData	32	static
+ade7753.c:61:6:ADE_WriteData	32	static

@@ -242,6 +242,7 @@ uint8_t SPI_Transfer(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer)
 {
 	pSPIx->DR = *pTxBuffer;
 	while(SPI_GetFlagStatus(pSPIx, SPI_RXNE_FLAG) == FLAG_RESET);
+	//printf("%x \n", pSPIx->DR);
 	return pSPIx->DR;
 }
 
@@ -254,7 +255,7 @@ void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi)
 	if(EnOrDi == ENABLE)
 	{
 		pSPIx->CR1 |= (1<< SPI_CR1_SPE);
-	}else
+	} else
 	{
 		pSPIx->CR1 &= ~(1<< SPI_CR1_SPE);
 	}
