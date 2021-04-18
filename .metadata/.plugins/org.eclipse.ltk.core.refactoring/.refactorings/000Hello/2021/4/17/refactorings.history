@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;000Hello/drivers/Inc/lcd5510.h&apos; to &apos;lcd5110.h&apos;" description="Rename resource &apos;lcd5510.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="drivers/Inc/lcd5510.h" name="lcd5110.h" stamp="1618761113615" updateReferences="true"/>
+</session>

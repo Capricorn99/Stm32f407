@@ -1,0 +1,235 @@
+/*
+ * lcd5510.h
+ *
+ *  Created on: Apr 18, 2021
+ *      Author: Admin
+ */
+
+#ifndef INC_LCD5510_H_
+#define INC_LCD5510_H_
+
+
+#include "stm32f4xx.h"
+#include "stm32f4xx_gpio_driver.h"
+#include "stm32f4xx_spi_driver.h"
+
+typedef enum {
+	LCD5510_COMMAND = 0,
+	LCD5510_DATA = !LCD5510_COMMAND
+} LCD5510_WriteType_t;
+
+typedef enum {
+	LCD5510_State_Low = 0,
+	LCD5510_State_High = !LCD5510_State_Low
+} LCD5510_State_t;
+
+typedef enum {
+	LCD5510_Pin_DC = 1,
+	LCD5510_Pin_RST = 2
+} LCD5510_Pin_t;
+/**
+ * Public enums
+ */
+/**
+ * Used for pixel "color"
+ * LCD is 2 bit, so pixel can be just set or clear
+ */
+typedef enum {
+	LCD5510_Pixel_Clear = 0,
+	LCD5510_Pixel_Set = !LCD5510_Pixel_Clear
+} LCD5510_Pixel_t;
+
+/**
+ * Font size for text
+ * There are 2 sizes included
+ */
+typedef enum {
+	LCD5510_FontSize_5x7 = 0,
+	LCD5510_FontSize_3x5 = !LCD5510_FontSize_5x7
+} LCD5510_FontSize_t;
+
+/**
+ * Used to invert pixels
+ */
+typedef enum {
+	LCD5510_Invert_Yes,
+	LCD5510_Invert_No
+} LCD5510_Invert_t;
+
+
+#define LCD5510_WIDTH				84
+#define LCD5510_HEIGHT				48
+
+// LCD5510 Commandset
+// ------------------
+// General commands
+#define LCD5510_POWERDOWN			0x04
+#define LCD5510_ENTRYMODE			0x02
+#define LCD5510_EXTENDEDINSTRUCTION	0x01
+#define LCD5510_DISPLAYBLANK		0x00
+#define LCD5510_DISPLAYNORMAL		0x04
+#define LCD5510_DISPLAYALLON		0x01
+#define LCD5510_DISPLAYINVERTED		0x05
+// Normal instruction set
+#define LCD5510_FUNCTIONSET			0x20
+#define LCD5510_DISPLAYCONTROL		0x08
+#define LCD5510_SETYADDR			0x40
+#define LCD5510_SETXADDR			0x80
+// Extended instruction set
+#define LCD5510_SETTEMP				0x04
+#define LCD5510_SETBIAS				0x10
+#define LCD5510_SETVOP				0x80
+// Display presets
+#define LCD5510_LCD_BIAS			0x03	// Range: 0-7 (0x00-0x07)
+#define LCD5510_LCD_TEMP			0x02	// Range: 0-3 (0x00-0x03)
+#define LCD5510_LCD_CONTRAST		0x46	// Range: 0-127 (0x00-0x7F)
+
+#define LCD5510_CHAR5x7_WIDTH		6 //5*8
+#define LCD5510_CHAR5x7_HEIGHT		8
+#define LCD5510_CHAR3x5_WIDTH		4 //3*5
+#define LCD5510_CHAR3x5_HEIGHT		6
+
+#define LCD5510_BUFFER_SIZE 		LCD5510_WIDTH * LCD5510_HEIGHT / 8
+
+//Default pins used
+//Default RST pin
+
+
+#define LCD5510_RST_PORT		GPIOA
+#define LCD5510_RST_PIN			GPIO_Pin_3
+
+
+//Default DC pin
+#define LCD5510_DC_PORT			GPIOA
+#define LCD5510_DC_PIN			GPIO_Pin_6
+
+
+//Default CE pin
+#define LCD5510_CE_PORT			GPIOA
+#define LCD5510_CE_PIN			GPIO_Pin_4
+
+/**
+ * Send data to LCD
+ *
+ */
+extern void LCD5510_send(unsigned char data);
+
+/**
+ * Set DC pin state
+ *
+ */
+extern void LCD5510_Pin(LCD5510_Pin_t pin, LCD5510_State_t state);
+
+/**
+ * Specify delay in microseconds
+ *
+ */
+extern void LCD5510_Delay(unsigned long micros);
+
+/**
+ * Write data/command to LCD
+ *
+ */
+extern void LCD5510_Write(LCD5510_WriteType_t cd, unsigned char data);
+
+/**
+ * Set area for refresh display
+ *
+ */
+extern void LCD5510_UpdateArea(unsigned char xMin, unsigned char yMin, unsigned char xMax, unsigned char yMax);
+
+/**
+ * Initialize LCD
+ *
+ * Parameters
+ * - unsigned char contrast: Contrast can be software selectable, from 0x00 to 0x7F
+ */
+extern void LCD5510_Init(unsigned char contrast);
+
+/**
+ * Set contrast for LCD
+ *
+ * Parameters
+ * - unsigned char contrast: Contrast can be software selectable, from 0x00 to 0x7F
+ */
+extern void LCD5510_SetContrast(unsigned char contrast);
+
+/**
+ * Invert LCD
+ *
+ * Parameters
+ * - LCD5510_Invert_t invert
+ * 		- LCD5510_Invert_Yes: Invert pixels on lcd
+ * 		- LCD5510_Invert_No: Return pixels to orignal
+ */
+extern void LCD5510_Invert(LCD5510_Invert_t invert);
+
+/**
+ * Clear lcd
+ */
+extern void LCD5510_Clear(void);
+
+/**
+ * Set/clear pixel at specific location
+ *
+ * Parameters
+ * - unsigned char x: x position of pixel
+ * - unsigned char y: y position of pixel
+ * - LCD5510_LCD5510_Pixel_t pixel: Set or clear pixel
+ * 		- LCD5510_Pixel_Set
+ * 		- LCD5510_Pixel_Clear
+ */
+extern void LCD5510_DrawPixel(unsigned char x, unsigned char y, LCD5510_Pixel_t pixel);
+
+/**
+ * Set cursor on lcd at 0, 0 location
+ *
+ */
+extern void LCD5510_Home(void);
+
+/**
+ * Put data from internal buffer to lcd
+ *
+ */
+extern void LCD5510_Refresh(void);
+
+/**
+ * Set cursor to desired position
+ *
+ * Parameters:
+ * - unsigned char x: x from 0 to 83
+ * - unsigned char y: y from 0 to 47
+ */
+extern void LCD5510_GotoXY(unsigned char x, unsigned char y);
+
+/**
+ * Put character on LCD
+ *
+ * Parameters:
+ * - char c: char to display
+ * - LCD5510_FontSize_t size: Font size
+ * 		- LCD5510_FontSize_5x7
+ * 		- LCD5510_FontSize_3x5
+ * - LCD5510_LCD5510_Pixel_t color
+ * 		- LCD5510_Pixel_Set
+ * 		- LCD5510_Pixel_Clear
+ */
+extern void LCD5510_Putc(char c, LCD5510_Pixel_t color, LCD5510_FontSize_t size);
+
+/**
+ * Put string on LCD
+ *
+ * Parameters:
+ * - char *c: pointer to first character of string
+ * - LCD5510_FontSize_t size: Font size
+ * 		- LCD5510_FontSize_5x7
+ * 		- LCD5510_FontSize_3x5
+ * - LCD5510_LCD5510_Pixel_t color
+ * 		- LCD5510_Pixel_Set
+ * 		- LCD5510_Pixel_Clear
+ */
+extern void LCD5510_Puts(char *c, LCD5510_Pixel_t color, LCD5510_FontSize_t size);
+
+
+
+#endif /* INC_LCD5510_H_ */

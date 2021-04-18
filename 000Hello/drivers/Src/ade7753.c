@@ -31,6 +31,7 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
+//	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
 
 	SPI_Transfer(pSPIx, &addr);
 	for(uint32_t i = 0; i < bytes_to_read; i++)
@@ -39,7 +40,9 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 		data |= SPI_Transfer(pSPIx, &dummy_write);
 		//printf("%x\n", data);
 	}
+
 	SPI_Transfer(pSPIx, &dummy_write2);
+
 	SPI_PeripheralControl(pSPIx, DISABLE); //SS pin pull to high
 	return data;
 }
@@ -61,11 +64,12 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write)
 {
 	uint8_t data = 0;
-//	uint8_t write_cmd = 0x80;
 	address |= 0x80;
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
+//	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
+
 	SPI_Transfer(pSPIx, &address);
 	for(uint32_t i = 0; i < bytes_to_write; i++)
 	{
@@ -73,5 +77,16 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 		SPI_Transfer(pSPIx, &data);
 	}
 	SPI_Transfer(pSPIx, &dummy_write2);
+
+
 	SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
 }
+
+//uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx)
+//{
+//	uint32_t vrms_stack = 0;
+//	for (int i = 0; i < 50; i++ )
+//	{
+//		vrms_stack += ADE_ReadData(pSPIx);
+//	}
+//}

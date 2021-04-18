@@ -68,5 +68,7 @@
 
 uint32_t ADE_ReadData(SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read);
 void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
+//uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx);
+
 
 #endif /* INC_ADE7753_H_ */

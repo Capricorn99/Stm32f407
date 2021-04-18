@@ -10,26 +10,26 @@ void delay(void)
 int main(void)
 {
 	GPIO_Handle_t GpioLed, GpioBtn;
-	memset(&GpioLed,0, sizeof(GpioLed));
-	memset(&GpioBtn,0, sizeof(GpioLed));
+//	memset(&GpioLed,0, sizeof(GpioLed));
+//	memset(&GpioBtn,0, sizeof(GpioLed));
 	GpioLed.pGPIOx = GPIOD;
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
 	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioLed.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
-	GPIO_PeriClockControl(GPIOD, ENABLE);
+	//GPIO_PeriClockControl(GPIOD, ENABLE);
 
 	GPIO_Init(&GpioLed);
 
 	GpioBtn.pGPIOx = GPIOD;
-	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
+	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
 	GpioBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
 	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
 
-	GPIO_PeriClockControl(GPIOD, ENABLE);
+	//GPIO_PeriClockControl(GPIOD, ENABLE);
 
 	GPIO_Init(&GpioBtn);
 
@@ -45,6 +45,7 @@ int main(void)
 void EXTI9_5_IRQHandler(void)
 {
 	delay();
-	GPIO_IRQHandling(GPIO_PIN_NO_5);// clear the pending event
-	GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_12);
+	GPIO_IRQHandling(GPIO_PIN_NO_6);// clear the pending event
+	GPIO_ToggleOutputPin(GPIOD, GPIO_PIN_NO_10);
+	printf("Hello \n");
 }
