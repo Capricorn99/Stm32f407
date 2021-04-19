@@ -1,2 +1,6 @@
-ade7753.c:28:10:ADE_ReadData	40	static
-ade7753.c:64:6:ADE_WriteData	32	static
+ade7753.c:33:6:SPI2_GPIOInits	24	static
+ade7753.c:63:6:SPI2_Inits	8	static
+ade7753.c:80:6:ZeroX_Inits	24	static
+ade7753.c:95:6:ADE_Inits	8	static
+ade7753.c:110:10:ADE_ReadData	40	static
+ade7753.c:146:6:ADE_WriteData	32	static

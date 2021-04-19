@@ -12,7 +12,67 @@ unsigned char LCD5110_x;
 unsigned char LCD5110_y;
 
 
-const uint8_t a=0;
+/*
+ * PA4 --> SPI1_NSS
+ * PA5 --> SPI1_SCLK
+ * PA7 --> SPI1_MOSI
+ * ALT function mode : 5
+ *
+ * PA6 -> GPIO_OUTPUT_PIN
+ * ALT function mode : 0
+ */
+void SPI1_GPIOInits(void)
+{
+	GPIO_Handle_t SPIPins;
+
+	SPIPins.pGPIOx = GPIOA;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
+	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
+	SPIPins.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+
+	//SCLK
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
+	GPIO_Init(&SPIPins);
+
+	//MOSI
+    SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_7;
+	GPIO_Init(&SPIPins);
+
+	//NSS
+ 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_4;
+	GPIO_Init(&SPIPins);
+
+	//DC Pin GPIO
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
+	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
+	GPIO_Init(&SPIPins);
+
+	//RESET Pin GPIO
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
+	GPIO_Init(&SPIPins);
+}
+
+
+
+void SPI1_Inits(void)
+{
+	SPI1handle.pSPIx = SPI1;
+	SPI1handle.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;			//full duplex
+	SPI1handle.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;	//STM as master
+	SPI1handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV8;		// clock 2MHz
+	SPI1handle.SPIConfig.SPI_DFF = SPI_DFF_8BITS;					// mỗi lần truyền 1 byte
+	SPI1handle.SPIConfig.SPI_CPOL = SPI_CPOL_LOW;					//CPOL 0
+	SPI1handle.SPIConfig.SPI_CPHA = SPI_CPHA_LOW;					//CPHA 0
+	SPI1handle.SPIConfig.SPI_SSM = SPI_SSM_DI; 						//Hardware slave management enabled for NSS pin
+
+	SPI_Init(&SPI1handle);
+}
+
+
 //Fonts 5x7
 const uint8_t LCD5110_Font5x7 [97][LCD5110_CHAR5x7_WIDTH] = {
 	{ 0x00, 0x00, 0x00, 0x00, 0x00 },   // sp
@@ -214,9 +274,9 @@ const uint8_t LCD5110_Font3x5[106][3] = {
 };
 
 void LCD5110_send(unsigned char data) {
-	SPI_PeripheralControl(SPI1, ENABLE); //SS pin pull to low
-	SPI_Transfer(SPI1, &data);
-	SPI_PeripheralControl(SPI1, DISABLE); //SS pin pull to low
+	SPI_PeripheralControl(SPI1, ENABLE); //SS pin pull to LOW
+	SPI_Transfer(SPI1, data);
+	SPI_PeripheralControl(SPI1, DISABLE); //SS pin pull to HIGH
 }
 
 void LCD5110_Pin(LCD5110_Pin_t pin, LCD5110_State_t state) {
@@ -239,15 +299,24 @@ void LCD5110_Pin(LCD5110_Pin_t pin, LCD5110_State_t state) {
 	}
 }
 
-
 void LCD5110_Delay(unsigned long micros) {
 	volatile unsigned long i;
 	for (i = 0; i < micros; i++) {
-
 	}
 }
 
 void LCD5110_Init(unsigned char contrast) {
+	SPI1_GPIOInits();
+	SPI1_Inits();
+
+	/*
+	* making SSOE 1 does NSS output enable.
+	* The NSS pin is automatically managed by the hardware.
+	* i.e when SPE=1 , NSS will be pulled to low
+	* and NSS pin will be high when SPE=0
+	*/
+	SPI_SSOEConfig(SPI1, ENABLE);
+
 	//Reset
 	LCD5110_Pin(LCD5110_Pin_RST, LCD5110_State_Low);
 	LCD5110_Delay(10000);
@@ -427,7 +496,7 @@ void LCD5110_Putc(char c, LCD5110_Pixel_t color, LCD5110_FontSize_t size) {
 		}
 		for (j = 0; j < c_height; j++) {
 			if (color == LCD5110_Pixel_Set) {
-				 (LCD5110_x, (LCD5110_y + j), ((b >> j) & 1) ? LCD5110_Pixel_Set : LCD5110_Pixel_Clear);
+				LCD5110_DrawPixel(LCD5110_x, (LCD5110_y + j), ((b >> j) & 1) ? LCD5110_Pixel_Set : LCD5110_Pixel_Clear);
 			} else {
 				LCD5110_DrawPixel(LCD5110_x, (LCD5110_y + j), ((b >> j) & 1) ? LCD5110_Pixel_Clear : LCD5110_Pixel_Set);
 			}

@@ -66,6 +66,20 @@
 #define CHKSUM      0x3E
 #define DIEREV      0x3F
 
+SPI_Handle_t SPI2handle;
+
+//this function is used to initialize the GPIO pins to behave as SPI2 pins
+void SPI2_GPIOInits(void);
+
+//This function is used to initialize the SPI2 peripheral parameters
+void SPI2_Inits(void);
+
+//This function is used to initialize the Zero_crossing  of ADE
+void ZeroX_Inits(void);
+
+//This function is used to initialize SPI2_GPIOInits & SPI2_Inits & some default configure for ADE eg: ZeroCrossing
+void ADE_Inits(void);
+
 uint32_t ADE_ReadData(SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read);
 void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, uint32_t bytes_to_write);
 //uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx);

@@ -13,6 +13,40 @@
 #include "stm32f4xx_gpio_driver.h"
 #include "stm32f4xx_spi_driver.h"
 
+
+//SPI used
+#ifndef LCD5110_SPI
+#define LCD5110_SPI				SPI1
+#endif
+
+//Default pins used
+//Default RST pin
+#ifndef LCD5110_RST_PIN
+#define LCD5110_RST_PORT		GPIOA
+#define LCD5110_RST_PIN			GPIO_PIN_NO_3
+#endif
+//Default DC pin
+#ifndef LCD5110_DC_PIN
+#define LCD5110_DC_PORT			GPIOA
+#define LCD5110_DC_PIN			GPIO_PIN_NO_6
+#endif
+
+//Default CE pin
+#ifndef LCD5110_CE_PIN
+#define LCD5110_CE_PORT			GPIOA
+#define LCD5110_CE_PIN			GPIO_PIN_NO_4
+#endif
+
+
+#define LCD5110_CE_LOW			GPIO_ResetBits(LCD5110_CE_PORT, LCD5110_CE_PIN)
+#define LCD5110_CE_HIGH			GPIO_SetBits(LCD5110_CE_PORT, LCD5110_CE_PIN)
+
+/*
+ * Private enums
+ */
+SPI_Handle_t SPI1handle;
+
+
 typedef enum {
 	LCD5110_COMMAND = 0,
 	LCD5110_DATA = !LCD5110_COMMAND
@@ -28,10 +62,11 @@ typedef enum {
 	LCD5110_Pin_RST = 2
 } LCD5110_Pin_t;
 
-/**
+/*
  * Public enums
  */
-/**
+
+/*
  * Used for pixel "color"
  * LCD is 2 bit, so pixel can be just set or clear
  */
@@ -40,7 +75,7 @@ typedef enum {
 	LCD5110_Pixel_Set = !LCD5110_Pixel_Clear
 } LCD5110_Pixel_t;
 
-/**
+/*
  * Font size for text
  * There are 2 sizes included
  */
@@ -49,7 +84,7 @@ typedef enum {
 	LCD5110_FontSize_3x5 = !LCD5110_FontSize_5x7
 } LCD5110_FontSize_t;
 
-/**
+/*
  * Used to invert pixels
  */
 typedef enum {
@@ -92,24 +127,17 @@ typedef enum {
 
 #define LCD5110_BUFFER_SIZE 		LCD5110_WIDTH * LCD5110_HEIGHT / 8
 
-//Default pins used
-//Default RST pin
+/*
+ * this function is used to initialize the GPIO pins to behave as SPI2 pins
+ */
+void SPI1_GPIOInits(void);
 
+/*
+ * This function is used to initialize the SPI2 peripheral parameters
+ */
+void SPI1_Inits(void);
 
-#define LCD5110_RST_PORT		GPIOA
-#define LCD5110_RST_PIN			GPIO_PIN_NO_3
-
-
-//Default DC pin
-#define LCD5110_DC_PORT			GPIOA
-#define LCD5110_DC_PIN			GPIO_PIN_NO_6
-
-
-//Default CE pin
-#define LCD5110_CE_PORT			GPIOA
-#define LCD5110_CE_PIN			GPIO_Pin_NO_4
-
-/**
+/*
  * Send data to LCD
  *
  */
