@@ -5,4 +5,6 @@
 "drivers/Src/ade7753.o"
 "drivers/Src/lcd5110.o"
 "drivers/Src/stm32f4xx_gpio_driver.o"
+"drivers/Src/stm32f4xx_rcc_driver.o"
 "drivers/Src/stm32f4xx_spi_driver.o"
+"drivers/Src/stm32f4xx_usart_driver.o"
