@@ -34,7 +34,6 @@ int main(void)
 	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
-	GPIO_PeriClockControl(GPIOA, ENABLE);
 
 	GPIO_Init(&GpioBtn);
 

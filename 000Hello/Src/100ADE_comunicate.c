@@ -26,8 +26,6 @@ int main (void)
 {
 
 
-
-
 	//ADE_Inits();
 
 
