@@ -143,9 +143,9 @@
                         					
                     </folderInfo>
                     					
-                    <fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.2031249916" name="101LCD5110_communicate.c" rcbsApplicability="disable" resourcePath="Src/101LCD5110_communicate.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.997152099">
+                    <fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.739887059" name="102Keypad_communicate.c" rcbsApplicability="disable" resourcePath="Src/102Keypad_communicate.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.692506620">
                         						
-                        <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.997152099" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361"/>
+                        <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.692506620" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361"/>
                         					
                     </fileInfo>
                     					
@@ -217,7 +217,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Inc"/>
                         						
-                        <entry excluding="101LCD5110_communicate.c|100ADE_comunicate.c|005button_interrupt.c|008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|004HSI_measurement.c|009spi_message_rcv_it.c|003led_button_ext.c|001led_toggle.c|002led_button.c|main.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
+                        <entry excluding="002led_button.c|101LCD5110_communicate.c|100ADE_comunicate.c|005button_interrupt.c|008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|004HSI_measurement.c|009spi_message_rcv_it.c|003led_button_ext.c|001led_toggle.c|main.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Startup"/>
                         						

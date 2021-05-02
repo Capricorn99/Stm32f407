@@ -22,22 +22,22 @@
 /* Row 1 default */
 #ifndef KEYPAD_ROW_1_PIN
 #define KEYPAD_ROW_1_PORT			GPIOC
-#define KEYPAD_ROW_1_PIN			GPIO_PIN_NO_1
+#define KEYPAD_ROW_1_PIN			GPIO_PIN_NO_0
 #endif
 /* Row 2 default */
 #ifndef KEYPAD_ROW_2_PIN
 #define KEYPAD_ROW_2_PORT			GPIOC
-#define KEYPAD_ROW_2_PIN			GPIO_PIN_NO_2
+#define KEYPAD_ROW_2_PIN			GPIO_PIN_NO_1
 #endif
 /* Row 3 default */
 #ifndef KEYPAD_ROW_3_PIN
 #define KEYPAD_ROW_3_PORT			GPIOC
-#define KEYPAD_ROW_3_PIN			GPIO_PIN_NO_3
+#define KEYPAD_ROW_3_PIN			GPIO_PIN_NO_2
 #endif
 /* Row 4 default */
 #ifndef KEYPAD_ROW_4_PIN
 #define KEYPAD_ROW_4_PORT			GPIOC
-#define KEYPAD_ROW_4_PIN			GPIO_PIN_NO_5
+#define KEYPAD_ROW_4_PIN			GPIO_PIN_NO_3
 #endif
 
 /* Columns */
@@ -64,7 +64,7 @@
 
 /* Number of milliseconds between 2 reads */
 #ifndef KEYPAD_READ_INTERVAL
-#define KEYPAD_READ_INTERVAL        100
+#define KEYPAD_READ_INTERVAL        50
 #endif
 
 /* Keypad no pressed */
