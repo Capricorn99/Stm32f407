@@ -65,6 +65,5 @@ void SysTick_Handler(void)
 {
     /* Process keypad */
     TM_KEYPAD_Update();
-    //printf("interrupt\n");
 }
 
