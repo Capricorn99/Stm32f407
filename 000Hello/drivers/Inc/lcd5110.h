@@ -23,7 +23,7 @@
 //Default RST pin
 #ifndef LCD5110_RST_PIN
 #define LCD5110_RST_PORT		GPIOA
-#define LCD5110_RST_PIN			GPIO_PIN_NO_9
+#define LCD5110_RST_PIN			GPIO_PIN_NO_2
 #endif
 //Default DC pin
 #ifndef LCD5110_DC_PIN

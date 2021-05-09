@@ -41,18 +41,18 @@ void SPI1_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//NSS
- 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_4;
+ 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_CE_PIN;
 	GPIO_Init(&SPIPins);
 
 	//DC Pin GPIO
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_DC_PIN;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
 	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	GPIO_Init(&SPIPins);
 
 	//RESET Pin GPIO
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_RST_PIN;
 	GPIO_Init(&SPIPins);
 }
 
