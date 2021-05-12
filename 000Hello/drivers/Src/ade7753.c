@@ -34,7 +34,7 @@ void SPI2_GPIOInits(void)
 {
 	GPIO_Handle_t SPIPins;
 
-	SPIPins.pGPIOx = GPIOB;
+	SPIPins.pGPIOx = SPI_PORT;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
 	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
@@ -42,20 +42,20 @@ void SPI2_GPIOInits(void)
 	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 
 	//SCLK
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_13;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCLK;
 	GPIO_Init(&SPIPins);
 
 	//MOSI
-    SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_15;
+    SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
 	GPIO_Init(&SPIPins);
 
 	//MISO
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
 	GPIO_Init(&SPIPins);
 
 
 	//NSS
- 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_12;
+ 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_NSS;
 	GPIO_Init(&SPIPins);
 
 }
@@ -81,16 +81,16 @@ void ZeroX_Inits(void)
 {
 	//Input pin trigger as falling edge
 	GPIO_Handle_t GpioBtn;
-	GpioBtn.pGPIOx = GPIOD;
-	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
+	GpioBtn.pGPIOx = IT_PORT;
+	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = IT_PIN_ZX;
 	GpioBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
 	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
 	GPIO_Init(&GpioBtn);
 
 	//IRQ configuration
-	GPIO_IRQPriorityConfig(IRQ_NO_EXTI9_5, NVIC_IRQ_PRIO15);
-	GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, ENABLE);
+	GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, NVIC_IRQ_PRIO11);
+	GPIO_IRQInterruptConfig(IRQ_NO_EXTI15_10, ENABLE);
 }
 void ADE_Inits(void)
 {

@@ -386,6 +386,7 @@ typedef struct
  * macros for all the possible priority levels
  */
 #define NVIC_IRQ_PRIO0		0
+#define NVIC_IRQ_PRIO11		11
 #define NVIC_IRQ_PRIO15		15
 
 //some generic macros#define IRQ_NO_EXTI0	6

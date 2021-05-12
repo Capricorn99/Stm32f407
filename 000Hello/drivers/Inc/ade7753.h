@@ -18,7 +18,9 @@
 #include "stm32f4xx_gpio_driver.h"
 #include "stm32f4xx_spi_driver.h"
 
-
+/*
+ * ADE REGISTERS
+ */
 #define WAVEFORM   	0x01	//24bits
 #define AENERGY     0x02	//24bits
 #define RAENERGY    0x03	//24bits
@@ -65,6 +67,18 @@
 #define TMODE       0x3D
 #define CHKSUM      0x3E
 #define DIEREV      0x3F
+
+/*
+ * Pin Mode
+ */
+#define SPI_PORT 		GPIOB
+#define SPI_PIN_MOSI 	GPIO_PIN_NO_15
+#define SPI_PIN_MISO	GPIO_PIN_NO_14
+#define SPI_PIN_SCLK	GPIO_PIN_NO_13
+#define SPI_PIN_NSS		GPIO_PIN_NO_12
+
+#define IT_PORT			GPIOB
+#define IT_PIN_ZX		GPIO_PIN_NO_11
 
 SPI_Handle_t SPI2handle;
 

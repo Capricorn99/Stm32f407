@@ -33,9 +33,9 @@ int main (void)
 
 }
 
-void EXTI9_5_IRQHandler(void)
+void EXTI15_10_IRQHandler(void)
 {
-	GPIO_IRQHandling(GPIO_PIN_NO_5);// clear the pending event
+	GPIO_IRQHandling(GPIO_PIN_NO_11);// clear the pending event
 
 	//printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
 	//printf("VRMS : %x \n", ADE_ReadData(SPI2, MODE, 2));
