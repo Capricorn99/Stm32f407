@@ -1,5 +1,10 @@
+#include "stm32f4xx.h"
+#include "stm32f4xx_gpio_driver.h"
+#include "stm32f4xx_spi_driver.h"
+
 #include "lcd5110.h"
 #include "keypad4x4.h"
+#include "ade7753.h"
 
 void delay(void) {
 	for(uint32_t i = 0; i < 500000; i++);
@@ -28,41 +33,75 @@ void init_systick_timer(uint32_t tick_hz)
     *pSCSR |= ( 1 << 0); //enables the counter
 }
 
-void number_to_string(uint8_t num , char* buf)
+void int_to_string(int num , char* buf)
 {
-	if(num < 10){
-		buf[0] = '0';
-		buf[1] = num+48;
-	}else if(num >= 10 && num < 99)
-	{
-		buf[0] = (num/10) + 48;
-		buf[1]= (num % 10) + 48;
+	int buf_len;
+	for (buf_len = 0; num > 0; buf_len++) {
+		buf[buf_len] = (num % 10) + 48;
+		num /= 10;
 	}
+
+	for (int low = 0, high = buf_len - 1; low < high; low++, high--)
+	{
+		int temp = buf[low];
+		buf[low] = buf[high];
+		buf[high] = temp;
+	}
+	buf[buf_len] = '\0';
 }
 
 int main(void) {
 	LCD5110_Init(0x37);
+	ADE_Inits();
+	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
+
+	//ADE_WriteData(SPI2, MODE, 0x000C, 2);
+
+	while(1)
+	{
+		LCD5110_Clear();
+		char* buf;
+		uint32_t vrms = ADE_ReadData(SPI2, VRMS, 3);
+		int_to_string(vrms, buf);
+		printf("VRMS : %x \n", vrms);
+		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+		LCD5110_Refresh();
+		delay();
+	}
+//    TM_KEYPAD_Button_t Keypad_Button, last_key;
+//    last_key = TM_KEYPAD_Button_NOPRESSED;
+//    TM_KEYPAD_Init(TM_KEYPAD_Type_Large);
+//    init_systick_timer(1000);
+
+//	char* buf;
+//	int_to_string(ADE_ReadData(SPI2, VRMS, 3), buf);
+//    LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+//    LCD5110_Refresh();
+
+//    while (1) {
+//        Keypad_Button = TM_KEYPAD_Read();
+//        if (Keypad_Button != TM_KEYPAD_Button_NOPRESSED && last_key == TM_KEYPAD_Button_NOPRESSED ) {
+////            printf("%u\n", (uint8_t) Keypad_Button);
+//        	static char buf[3];
+//        	buf[2] = '\0';
+//        	number_to_string((uint8_t) Keypad_Button, buf);
+//        	LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+//        	LCD5110_Refresh();
+//		}
+//        last_key = Keypad_Button;
+//    }
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+	GPIO_IRQHandling(GPIO_PIN_NO_11);// clear the pending event
+
+	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
 
 
-    TM_KEYPAD_Button_t Keypad_Button, last_key;
-    last_key = TM_KEYPAD_Button_NOPRESSED;
-    TM_KEYPAD_Init(TM_KEYPAD_Type_Large);
-    init_systick_timer(1000);
-
-    while (1) {
-        Keypad_Button = TM_KEYPAD_Read();
-        if (Keypad_Button != TM_KEYPAD_Button_NOPRESSED && last_key == TM_KEYPAD_Button_NOPRESSED ) {
-//            printf("%u\n", (uint8_t) Keypad_Button);
-        	static char buf[3];
-        	buf[2] = '\0';
-        	number_to_string((uint8_t) Keypad_Button, buf);
-        	LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-            LCD5110_Refresh();
-		}
-        last_key = Keypad_Button;
-    }
 }
 
 void SysTick_Handler(void) {
     TM_KEYPAD_Update();
 }
+

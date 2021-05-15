@@ -53,7 +53,6 @@ void SPI2_GPIOInits(void)
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
 	GPIO_Init(&SPIPins);
 
-
 	//NSS
  	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_NSS;
 	GPIO_Init(&SPIPins);

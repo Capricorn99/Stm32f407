@@ -24,13 +24,7 @@ void delay(void)
 
 int main (void)
 {
-
-
 	ADE_Inits();
-
-
-
-
 }
 
 void EXTI15_10_IRQHandler(void)
