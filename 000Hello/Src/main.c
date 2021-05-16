@@ -33,19 +33,25 @@ void init_systick_timer(uint32_t tick_hz)
     *pSCSR |= ( 1 << 0); //enables the counter
 }
 
-void int_to_string(int num , char* buf)
+void int_to_string(uint32_t num , char* buf)
 {
 	int buf_len;
-	for (buf_len = 0; num > 0; buf_len++) {
-		buf[buf_len] = (num % 10) + 48;
-		num /= 10;
+	if (num == 0) {
+		buf[0] = 48;
+		buf_len = 1;
 	}
+	else {
+		for (buf_len = 0; num > 0; buf_len++) {
+			buf[buf_len] = (num % 10) + 48;
+			num /= 10;
+		}
 
-	for (int low = 0, high = buf_len - 1; low < high; low++, high--)
-	{
-		int temp = buf[low];
-		buf[low] = buf[high];
-		buf[high] = temp;
+		for (int low = 0, high = buf_len - 1; low < high; low++, high--)
+		{
+			int temp = buf[low];
+			buf[low] = buf[high];
+			buf[high] = temp;
+		}
 	}
 	buf[buf_len] = '\0';
 }
@@ -53,9 +59,18 @@ void int_to_string(int num , char* buf)
 int main(void) {
 	LCD5110_Init(0x37);
 	ADE_Inits();
-	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
-
+	delay();
 	//ADE_WriteData(SPI2, MODE, 0x000C, 2);
+	delay();
+
+//	char* mode;
+//	int_to_string(ADE_ReadData(SPI2, MODE, 2), mode);
+//	LCD5110_Puts(mode, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+//	LCD5110_Refresh();
+	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
+//	//for(uint32_t i = 0; i < 5000000; i++);
+//
+
 
 	while(1)
 	{
@@ -64,8 +79,10 @@ int main(void) {
 		uint32_t vrms = ADE_ReadData(SPI2, VRMS, 3);
 		int_to_string(vrms, buf);
 		printf("VRMS : %x \n", vrms);
+		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Refresh();
+
 		delay();
 	}
 //    TM_KEYPAD_Button_t Keypad_Button, last_key;
