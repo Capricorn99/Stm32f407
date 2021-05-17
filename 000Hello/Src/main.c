@@ -57,32 +57,25 @@ void int_to_string(uint32_t num , char* buf)
 }
 
 int main(void) {
+	char* buf;
+
 	LCD5110_Init(0x37);
 	ADE_Inits();
-	delay();
-	//ADE_WriteData(SPI2, MODE, 0x000C, 2);
-	delay();
 
-//	char* mode;
-//	int_to_string(ADE_ReadData(SPI2, MODE, 2), mode);
-//	LCD5110_Puts(mode, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-//	LCD5110_Refresh();
+
+	ADE_WriteData(SPI2, MODE, 0x000C, 2);
+
 	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
-//	//for(uint32_t i = 0; i < 5000000; i++);
-//
-
-
 	while(1)
 	{
-		LCD5110_Clear();
-		char* buf;
 		uint32_t vrms = ADE_ReadData(SPI2, VRMS, 3);
 		int_to_string(vrms, buf);
-		printf("VRMS : %x \n", vrms);
+
+//		printf("VRMS : %x \n", vrms);
+		LCD5110_Clear();
 		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Refresh();
-
 		delay();
 	}
 //    TM_KEYPAD_Button_t Keypad_Button, last_key;
@@ -112,10 +105,7 @@ int main(void) {
 void EXTI15_10_IRQHandler(void)
 {
 	GPIO_IRQHandling(GPIO_PIN_NO_11);// clear the pending event
-
 	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
-
-
 }
 
 void SysTick_Handler(void) {
