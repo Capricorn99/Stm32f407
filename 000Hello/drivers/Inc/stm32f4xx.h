@@ -349,14 +349,15 @@ typedef struct
 #define GPIOH_REG_RESET()		do {(RCC ->AHB1RSTR |= (1<<7)); (RCC->AHB1RSTR &= ~ (1<<7));} while(0)
 #define GPIOI_REG_RESET()		do {(RCC ->AHB1RSTR |= (1<<8)); (RCC->AHB1RSTR &= ~ (1<<8));} while(0)
 
-#define GPIO_BASEADDR_TO_CODE(x)	(x == GPIOA) ? 0 :\
-									(x == GPIOB) ? 1 :\
-									(x == GPIOC) ? 2 :\
-									(x == GPIOD) ? 3 :\
-									(x == GPIOE) ? 4 :\
-									(x == GPIOF) ? 5 :\
-									(x == GPIOG) ? 6 :\
-									(x == GPIOH) ? 7 :0
+#define GPIO_BASEADDR_TO_CODE(x)      ( (x == GPIOA)?0:\
+										(x == GPIOB)?1:\
+										(x == GPIOC)?2:\
+										(x == GPIOD)?3:\
+								        (x == GPIOE)?4:\
+								        (x == GPIOF)?5:\
+								        (x == GPIOG)?6:\
+								        (x == GPIOH)?7: \
+								        (x == GPIOI)?8:0)
 
 /*
  * IRQ (Interrupt Request) Numbers of STM32F407x MCU
@@ -369,6 +370,7 @@ typedef struct
 #define IRQ_NO_EXTI4		10
 #define IRQ_NO_EXTI9_5		23
 #define IRQ_NO_EXTI15_10	40
+
 #define IRQ_NO_SPI1			35
 #define IRQ_NO_SPI2         36
 #define IRQ_NO_SPI3         51

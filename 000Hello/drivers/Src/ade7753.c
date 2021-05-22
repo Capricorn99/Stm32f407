@@ -88,7 +88,7 @@ void ZeroX_Inits(void)
 	GPIO_Init(&GpioBtn);
 
 	//IRQ configuration
-	GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, NVIC_IRQ_PRIO11);
+	GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, NVIC_IRQ_PRIO0);
 	GPIO_IRQInterruptConfig(IRQ_NO_EXTI15_10, ENABLE);
 }
 void ADE_Inits(void)
@@ -160,6 +160,12 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 	SPI_Transfer(pSPIx, dummy_write2);
 
 	SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
+}
+
+void EXTI15_10_IRQHandler(void)
+{
+	GPIO_IRQHandling(IT_PIN_ZX);// clear the pending event
+	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
 }
 
 //uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx)

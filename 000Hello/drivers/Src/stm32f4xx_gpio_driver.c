@@ -93,95 +93,6 @@ void GPIO_PeriClockControl(GPIO_RegDef_t*pGPIOx, uint8_t EnorDi)
 	}
 }
 
-/*
- * Init & De-init
- */
-//void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
-//{
-//	uint32_t temp=0;
-//	//enable the peripheral clock
-//	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
-//
-//	//1. configure the mode of gpio
-//	if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
-//	{
-//		//the non interrupt mode
-//		temp = (pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode << (2* pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-//
-//		pGPIOHandle ->pGPIOx ->MODER &= ~(0x03 << (2* pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber)); //clearing
-//		pGPIOHandle ->pGPIOx ->MODER |= temp; //setting
-//
-//		//printf("Gia tri thanh ghi MODER %x \n", pGPIOHandle ->pGPIOx ->MODER);
-//
-//	}else
-//	{
-//		//code later
-//		if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_FT)
-//		{
-//			//1. configure the FTSR
-//			EXTI ->FTSR |= (1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//			// Clear the corresponding RTSR bit
-//			EXTI ->RTSR &= ~(1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//
-//		}else if (pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_RT)
-//		{
-//			//1. configure the RTSR
-//			EXTI ->RTSR |= (1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//			// Clear the corresponding RTSR bit
-//			EXTI ->FTSR &= ~(1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//
-//		}else if (pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_IT_RFT)
-//		{
-//			//1. configure the both FTSR and RTSR
-//			EXTI ->RTSR |= (1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//			// Clear the corresponding RTSR bit
-//			EXTI ->FTSR |= (1<< pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//
-//		}
-//
-//		//2. configure GPIO port selection in SYSCFG_EXTICR
-//		uint8_t temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber/4;
-//		uint8_t temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber%4;
-//		uint8_t portcode = GPIO_BASEADDR_TO_CODE(pGPIOHandle->pGPIOx);
-//		SYSCFG_PCLK_EN();
-//		SYSCFG->EXTICR[temp1]= portcode << (temp2*4);
-//
-//		//3. enable the exti interrupt delivery using IMR
-//		EXTI ->IMR |= 1 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber;
-//	}
-//
-//	//2. configure the speed
-//	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinSpeed << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
-//	pGPIOHandle ->pGPIOx ->OSPEEDR &= ~( 0x3 << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
-//	pGPIOHandle ->pGPIOx ->OSPEEDR |= temp;
-//
-//	temp =0;
-//	//3. configure the pu pd settings
-//	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinPuPdControl << (2* pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber));
-//	pGPIOHandle ->pGPIOx ->PUPDR &= ~( 0x3 << ( 2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber)); //clearing
-//	pGPIOHandle ->pGPIOx ->PUPDR |= temp;
-//
-//	temp =0;
-//
-//	//4. configure
-//	temp = (pGPIOHandle -> GPIO_PinConfig.GPIO_PinoType << pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber);
-//	pGPIOHandle ->pGPIOx ->OTYPER &= ~(0x01 << pGPIOHandle ->GPIO_PinConfig.GPIO_PinNumber); //clearing
-//	pGPIOHandle ->pGPIOx ->OTYPER |= temp;
-//
-//	temp =0;
-//
-//	//5. configure
-//	if(pGPIOHandle ->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALFN)
-//	{
-//		uint32_t temp1, temp2;
-//
-//		temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber /8;
-//		temp2 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber %8;
-//		pGPIOHandle->pGPIOx->AFR[temp1] &= ~(0xF << (4* temp2));
-//		pGPIOHandle->pGPIOx->AFR[temp1] |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinAltFunMode << (4* temp2));
-//	}
-//}
-
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
 	 uint32_t temp=0; //temp. register
@@ -201,7 +112,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 
 	}else
 	{
-		//this part will code later . ( interrupt mode)
+		// interrupt mode
 		if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode ==GPIO_MODE_IT_FT )
 		{
 			//1. configure the FTSR
@@ -349,13 +260,13 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
 		}else if (IRQNumber >31 && IRQNumber < 64)
 		{
 			//program ISER1 register
-			*NVIC_ISER0 |= ( 1 << IRQNumber %32 );
+			*NVIC_ISER1 |= ( 1 << IRQNumber %32 );
 
 		}
 		else if (IRQNumber >=64 && IRQNumber < 96)
 		{
 			//program ISER2 register
-			*NVIC_ISER0 |= ( 1 << IRQNumber % 64 );
+			*NVIC_ISER2 |= ( 1 << IRQNumber % 64 );
 
 		}
 	}else

@@ -63,7 +63,7 @@ int main(void) {
 	ADE_Inits();
 
 
-	ADE_WriteData(SPI2, MODE, 0x000C, 2);
+	//ADE_WriteData(SPI2, MODE, 0x000C, 2);
 
 	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
 	while(1)
@@ -102,11 +102,7 @@ int main(void) {
 //    }
 }
 
-void EXTI15_10_IRQHandler(void)
-{
-	GPIO_IRQHandling(GPIO_PIN_NO_11);// clear the pending event
-	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
-}
+
 
 void SysTick_Handler(void) {
     TM_KEYPAD_Update();
