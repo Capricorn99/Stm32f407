@@ -24,8 +24,6 @@ int main(void)
 	GpioLed.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_OD;
 	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
 
-	GPIO_PeriClockControl(GPIOD, ENABLE);
-
 	GPIO_Init(&GpioLed);
 
 	GpioBtn.pGPIOx = GPIOA;

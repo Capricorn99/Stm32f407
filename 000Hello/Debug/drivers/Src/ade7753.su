@@ -1,7 +1,8 @@
 ade7753.c:33:6:SPI2_GPIOInits	24	static
 ade7753.c:62:6:SPI2_Inits	8	static
 ade7753.c:79:6:ZeroX_Inits	24	static
-ade7753.c:94:6:ADE_Inits	8	static
-ade7753.c:109:10:ADE_ReadData	40	static
-ade7753.c:145:6:ADE_WriteData	32	static
-ade7753.c:165:6:EXTI15_10_IRQHandler	8	static
+ade7753.c:95:6:SAG_Inits	32	static
+ade7753.c:123:6:ADE_Inits	8	static
+ade7753.c:139:10:ADE_ReadData	40	static
+ade7753.c:173:6:ADE_WriteData	32	static
+ade7753.c:191:6:EXTI15_10_IRQHandler	16	static

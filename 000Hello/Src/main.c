@@ -76,6 +76,15 @@ int main(void) {
 		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Refresh();
+
+		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
+		{
+			GPIO_WriteToOutputPin(GPIOE, GPIO_PIN_NO_11, 1);
+		}
+		else
+		{
+			GPIO_WriteToOutputPin(GPIOE, GPIO_PIN_NO_11, 0);
+		}
 		delay();
 	}
 //    TM_KEYPAD_Button_t Keypad_Button, last_key;

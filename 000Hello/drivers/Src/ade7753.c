@@ -79,17 +79,46 @@ void SPI2_Inits(void)
 void ZeroX_Inits(void)
 {
 	//Input pin trigger as falling edge
-	GPIO_Handle_t GpioBtn;
-	GpioBtn.pGPIOx = IT_PORT;
-	GpioBtn.GPIO_PinConfig.GPIO_PinNumber = IT_PIN_ZX;
-	GpioBtn.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
-	GpioBtn.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
-	GpioBtn.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
-	GPIO_Init(&GpioBtn);
+	GPIO_Handle_t GpioZX;
+	GpioZX.pGPIOx = IT_PORT_ZX;
+	GpioZX.GPIO_PinConfig.GPIO_PinNumber = IT_PIN_ZX;
+	GpioZX.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+	GpioZX.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	GpioZX.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
+	GPIO_Init(&GpioZX);
 
 	//IRQ configuration
 	GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, NVIC_IRQ_PRIO0);
 	GPIO_IRQInterruptConfig(IRQ_NO_EXTI15_10, ENABLE);
+}
+
+void SAG_Inits(void)
+{
+	//Input pin
+	GPIO_Handle_t GpioSAG;
+	GpioSAG.pGPIOx = PORT_SAG;
+	GpioSAG.GPIO_PinConfig.GPIO_PinNumber = PIN_SAG;
+	GpioSAG.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
+	GpioSAG.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	GpioSAG.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	GPIO_Init(&GpioSAG);
+
+	//Output led
+	GPIO_Handle_t GpioLed;
+
+	GpioLed.pGPIOx = GPIOE;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_11;
+	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	GpioLed.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
+	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	GPIO_Init(&GpioLed);
+
+	//ADE side
+	ADE_WriteData(SPI2, MODE, 0x0004, 2);
+	ADE_WriteData(SPI2, SAGCYC, 0x04, 1);
+	ADE_WriteData(SPI2, SAGLVL, 0x17, 1);
+
 }
 void ADE_Inits(void)
 {
@@ -103,6 +132,7 @@ void ADE_Inits(void)
 	*/
 	SPI_SSOEConfig(SPI2, ENABLE);
 	ZeroX_Inits();
+	SAG_Inits();
 }
 
 
@@ -112,8 +142,6 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
-//	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
-//	SPI_Transfer(pSPIx, dummy_write2);
 	SPI_Transfer(pSPIx, addr);
 	for(uint32_t i = 0; i < bytes_to_read; i++)
 	{
@@ -149,8 +177,6 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 	uint8_t dummy_write = 0xff;
 	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
-//	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
-//	SPI_Transfer(pSPIx, dummy_write2);
 	SPI_Transfer(pSPIx, address);
 	for(uint32_t i = 0; i < bytes_to_write; i++)
 	{
@@ -164,8 +190,15 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 
 void EXTI15_10_IRQHandler(void)
 {
-	GPIO_IRQHandling(IT_PIN_ZX);// clear the pending event
-	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
+
+    uint32_t pending = EXTI->PR;
+    if(pending & (1 << IT_PIN_ZX))
+    {
+        EXTI->PR = 1 << IT_PIN_ZX; // clear pending flag, otherwise we'd get endless interrupts
+        // handle pin ZX here
+    	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
+
+    }
 }
 
 //uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx)

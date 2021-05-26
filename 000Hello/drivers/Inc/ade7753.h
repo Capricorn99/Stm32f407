@@ -77,8 +77,11 @@
 #define SPI_PIN_SCLK	GPIO_PIN_NO_13
 #define SPI_PIN_NSS		GPIO_PIN_NO_12
 
-#define IT_PORT			GPIOB
+#define IT_PORT_ZX			GPIOB
 #define IT_PIN_ZX		GPIO_PIN_NO_11
+
+#define PORT_SAG			GPIOD
+#define PIN_SAG		GPIO_PIN_NO_13
 
 SPI_Handle_t SPI2handle;
 
@@ -90,6 +93,9 @@ void SPI2_Inits(void);
 
 //This function is used to initialize the Zero_crossing  of ADE
 void ZeroX_Inits(void);
+
+//This function is used to initialize the SAG of ADE
+void SAG_Inits(void);
 
 //This function is used to initialize SPI2_GPIOInits & SPI2_Inits & some default configure for ADE eg: ZeroCrossing
 void ADE_Inits(void);
