@@ -76,14 +76,15 @@ int main(void) {
 		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
 		LCD5110_Refresh();
+		delay();
 
 		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
 		{
-			GPIO_WriteToOutputPin(GPIOE, GPIO_PIN_NO_11, 1);
+			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
 		}
 		else
 		{
-			GPIO_WriteToOutputPin(GPIOE, GPIO_PIN_NO_11, 0);
+			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 0);
 		}
 		delay();
 	}

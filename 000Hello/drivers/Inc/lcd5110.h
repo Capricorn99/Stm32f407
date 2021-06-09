@@ -23,23 +23,21 @@
 //Default RST pin
 #ifndef LCD5110_RST_PIN
 #define LCD5110_RST_PORT		GPIOA
-#define LCD5110_RST_PIN			GPIO_PIN_NO_2
+#define LCD5110_RST_PIN			GPIO_PIN_NO_3
 #endif
 //Default DC pin
 #ifndef LCD5110_DC_PIN
-#define LCD5110_DC_PORT			GPIOA
-#define LCD5110_DC_PIN			GPIO_PIN_NO_6
+#define LCD5110_DC_PORT			GPIOC
+#define LCD5110_DC_PIN			GPIO_PIN_NO_5
 #endif
 
 //Default CE pin
 #ifndef LCD5110_CE_PIN
-#define LCD5110_CE_PORT			GPIOA
-#define LCD5110_CE_PIN			GPIO_PIN_NO_4
+#define LCD5110_CE_PORT			GPIOB
+#define LCD5110_CE_PIN			GPIO_PIN_NO_1
 #endif
 
 
-#define LCD5110_CE_LOW			GPIO_ResetBits(LCD5110_CE_PORT, LCD5110_CE_PIN)
-#define LCD5110_CE_HIGH			GPIO_SetBits(LCD5110_CE_PORT, LCD5110_CE_PIN)
 
 /*
  * Private enums

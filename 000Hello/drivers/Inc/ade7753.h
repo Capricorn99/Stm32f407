@@ -77,11 +77,21 @@
 #define SPI_PIN_SCLK	GPIO_PIN_NO_13
 #define SPI_PIN_NSS		GPIO_PIN_NO_12
 
-#define IT_PORT_ZX			GPIOB
-#define IT_PIN_ZX		GPIO_PIN_NO_11
+#define PORT_RST		GPIOD
+#define PIN_RST		GPIO_PIN_NO_15
+
+#define IT_PORT_ZX			GPIOD
+#define IT_PIN_ZX		GPIO_PIN_NO_13
 
 #define PORT_SAG			GPIOD
-#define PIN_SAG		GPIO_PIN_NO_13
+#define PIN_SAG			GPIO_PIN_NO_11
+
+#define PORT_IRQ			GPIOD
+#define PIN_IRQ			GPIO_PIN_NO_9
+
+#define PORT_SAG_LED		GPIOE
+#define PIN_SAG_LED		GPIO_PIN_NO_5
+
 
 SPI_Handle_t SPI2handle;
 

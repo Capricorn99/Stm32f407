@@ -238,8 +238,8 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 uint8_t SPI_Transfer(SPI_RegDef_t *pSPIx, uint8_t data)
 {
 	pSPIx->DR = data;
-	//while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
-	while(SPI_GetFlagStatus(pSPIx,SPI_TXE_FLAG)  == FLAG_RESET );
+	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
+	//while(SPI_GetFlagStatus(pSPIx,SPI_TXE_FLAG)  == FLAG_RESET );
 
 	//printf("%x \n", pSPIx->DR);
 	return pSPIx->DR;

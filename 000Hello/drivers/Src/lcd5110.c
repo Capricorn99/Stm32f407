@@ -40,11 +40,24 @@ void SPI1_GPIOInits(void)
     SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_7;
 	GPIO_Init(&SPIPins);
 
+	//MISO
+    SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_6;
+	GPIO_Init(&SPIPins);
+
 	//NSS
+    SPIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_4;
+	GPIO_Init(&SPIPins);
+
+	//CE
+	SPIPins.pGPIOx = LCD5110_CE_PORT;
  	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_CE_PIN;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
+	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	GPIO_Init(&SPIPins);
 
 	//DC Pin GPIO
+	SPIPins.pGPIOx = LCD5110_DC_PORT;
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_DC_PIN;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
@@ -52,6 +65,7 @@ void SPI1_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//RESET Pin GPIO
+	SPIPins.pGPIOx = LCD5110_RST_PORT;
 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = LCD5110_RST_PIN;
 	GPIO_Init(&SPIPins);
 }
@@ -274,8 +288,13 @@ const uint8_t LCD5110_Font3x5[106][3] = {
 };
 
 void LCD5110_send(unsigned char data) {
+
 	SPI_PeripheralControl(SPI1, ENABLE); //SS pin pull to LOW
+	GPIO_WriteToOutputPin(LCD5110_CE_PORT, LCD5110_CE_PIN, 0);
+
 	SPI_Transfer(SPI1, data);
+	GPIO_WriteToOutputPin(LCD5110_CE_PORT, LCD5110_CE_PIN, 1);
+
 	SPI_PeripheralControl(SPI1, DISABLE); //SS pin pull to HIGH
 }
 

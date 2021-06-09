@@ -57,6 +57,14 @@ void SPI2_GPIOInits(void)
  	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_NSS;
 	GPIO_Init(&SPIPins);
 
+	//RESET Pin GPIO
+	SPIPins.pGPIOx = ADE_RST_PORT;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = ADE_RST_PIN;
+	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
+	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
+	GPIO_Init(&SPIPins);
+
 }
 
 void SPI2_Inits(void)
@@ -106,8 +114,8 @@ void SAG_Inits(void)
 	//Output led
 	GPIO_Handle_t GpioLed;
 
-	GpioLed.pGPIOx = GPIOE;
-	GpioLed.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_11;
+	GpioLed.pGPIOx = PORT_SAG_LED;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = PIN_SAG_LED;
 	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioLed.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
@@ -131,6 +139,12 @@ void ADE_Inits(void)
 	* and NSS pin will be high when SPE=0
 	*/
 	SPI_SSOEConfig(SPI2, ENABLE);
+
+	//Reset
+	GPIO_WriteToOutputPin(PORT_RST, PIN_RST, 0);
+	delay();
+	GPIO_WriteToOutputPin(PORT_RST, PIN_RST, 1);
+
 	ZeroX_Inits();
 	SAG_Inits();
 }
@@ -199,7 +213,13 @@ void EXTI15_10_IRQHandler(void)
     	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
 
     }
+    if(pending & (1 << 6)) {
+        EXTI->PR = 1 << 6;
+        // handle pin 6 here
+    }
 }
+
+
 
 //uint32_t ADE_VRMS(SPI_RegDef_t *pSPIx)
 //{
