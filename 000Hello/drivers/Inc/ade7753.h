@@ -101,8 +101,6 @@
 #define PIN_IP_LED		GPIO_PIN_NO_1
 
 
-SPI_Handle_t SPI2handle;
-
 //this function is used to initialize the GPIO pins to behave as SPI2 pins
 void SPI2_GPIOInits(void);
 

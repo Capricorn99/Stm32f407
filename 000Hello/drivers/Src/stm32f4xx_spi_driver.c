@@ -103,6 +103,7 @@ void  SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi)
 
 void SPI_Init(SPI_Handle_t *pSPIHandle)
 {
+
 	//peripheral clock enable
 	SPI_PeriClockControl(pSPIHandle->pSPIx, ENABLE);
 
@@ -237,11 +238,14 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 
 uint8_t SPI_Transfer(SPI_RegDef_t *pSPIx, uint8_t data)
 {
+	while((((pSPIx)->SR & ((uint8_t)0x02 | (uint8_t)0x01)) == 0 || ((pSPIx)->SR & (uint8_t)0x80)));
+
 	pSPIx->DR = data;
-	while( ( (pSPIx->SR & 0x0003) == 0) || (pSPIx->SR & 0x0080) );
+
+	while((((pSPIx)->SR & ((uint8_t)0x02 | (uint8_t)0x01)) == 0 || ((pSPIx)->SR & (uint8_t)0x80)));
+
 	//while(SPI_GetFlagStatus(pSPIx,SPI_TXE_FLAG)  == FLAG_RESET );
 
-	//printf("%x \n", pSPIx->DR);
 	return pSPIx->DR;
 }
 

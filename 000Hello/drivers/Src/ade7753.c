@@ -34,7 +34,7 @@ void SPI2_GPIOInits(void)
 {
 	GPIO_Handle_t SPIPins;
 
-	SPIPins.pGPIOx = SPI_PORT;
+	SPIPins.pGPIOx = GPIOB;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 5;
 	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
@@ -42,21 +42,19 @@ void SPI2_GPIOInits(void)
 	SPIPins.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 
 	//SCLK
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCLK;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = 13;
 	GPIO_Init(&SPIPins);
 
 	//MOSI
-//	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_OD;
-    SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = 15;
 	GPIO_Init(&SPIPins);
 
 	//MISO
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = 14;
 	GPIO_Init(&SPIPins);
 
 	//NSS
-//	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
- 	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_NSS;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = 12;
 	GPIO_Init(&SPIPins);
 
 	//RESET Pin GPIO
@@ -70,6 +68,8 @@ void SPI2_GPIOInits(void)
 
 void SPI2_Inits(void)
 {
+	SPI_Handle_t SPI2handle;
+
 	SPI2handle.pSPIx = SPI2;
 	SPI2handle.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;			//full duplex
 	SPI2handle.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;	//STM as master
@@ -79,7 +79,9 @@ void SPI2_Inits(void)
 	SPI2handle.SPIConfig.SPI_CPHA = SPI_CPHA_HIGH;					//CPHA 1
 	SPI2handle.SPIConfig.SPI_SSM = SPI_SSM_DI; 						//Hardware slave management enabled for NSS pin
 
+	SPI2->CR1 &= ~((uint16_t)0x0040);
 	SPI_Init(&SPI2handle);
+	SPI2->CR1 |= ((uint16_t)0x0040);
 }
 
 /*
@@ -166,13 +168,9 @@ void IRQ_Inits()
 	GPIO_Init(&GpioLed);
 
 	//ADE side
-	printf("MODE2 : %x \n", ADE_ReadData(SPI2, MODE, 2));
-
 	printf("IRQEN0 : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
-
-	ADE_WriteData(SPI2, IRQEN, 0x0000, 2);
-	printf("IRQEN0 : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
-
+	ADE_WriteData(SPI2, IRQEN, 0x0340, 2);
+	printf("IRQEN1 : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
 	ADE_WriteData(SPI2, VPKLVL, 0x29, 1);
 	ADE_WriteData(SPI2, IPKLVL, 0x2D, 1);
 
@@ -181,13 +179,17 @@ void IRQ_Inits()
 void ADE_Inits(void)
 {
 	SPI2_GPIOInits();
+
+
 	SPI2_Inits();
+
 	/*
 	* making SSOE 1 does NSS output enable.
 	* The NSS pin is automatically managed by the hardware.
 	* i.e when SPE=1 , NSS will be pulled to low
 	* and NSS pin will be high when SPE=0
 	*/
+
 	SPI_SSOEConfig(SPI2, ENABLE);
 
 	//Reset
@@ -204,9 +206,8 @@ void ADE_Inits(void)
 //	SAG_Inits();
 //	delay();
 
-//	IRQ_Inits();
-//	printf("IRQEN : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
-
+	IRQ_Inits();
+	delay();
 
 }
 
@@ -215,7 +216,7 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 {
 	uint32_t data = 0;
 	uint8_t dummy_write = 0xff;
-	uint8_t dummy_write2 = 0x00;
+//	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
 	SPI_Transfer(pSPIx, addr);
 	for(uint32_t i = 0; i < bytes_to_read; i++)
@@ -225,7 +226,7 @@ uint32_t ADE_ReadData( SPI_RegDef_t *pSPIx, uint8_t addr, uint32_t bytes_to_read
 		//printf("%x\n", data);
 	}
 
-	SPI_Transfer(pSPIx, dummy_write2);
+//	SPI_Transfer(pSPIx, dummy_write2);
 
 	SPI_PeripheralControl(pSPIx, DISABLE); //SS pin pull to high
 	return data;
@@ -249,8 +250,7 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 {
 	uint8_t data = 0;
 	address |= 0x80;
-	uint8_t dummy_write = 0xff;
-	uint8_t dummy_write2 = 0x00;
+//	uint8_t dummy_write2 = 0x00;
 	SPI_PeripheralControl(pSPIx, ENABLE); //SS pin pull to low
 	SPI_Transfer(pSPIx, address);
 	for(uint32_t i = 0; i < bytes_to_write; i++)
@@ -258,7 +258,7 @@ void ADE_WriteData(SPI_RegDef_t *pSPIx, uint8_t address, uint32_t write_buffer, 
 		data = (uint8_t)(write_buffer >> 8*(bytes_to_write - i - 1));
 		SPI_Transfer(pSPIx, data);
 	}
-	SPI_Transfer(pSPIx, dummy_write2);
+//	SPI_Transfer(pSPIx, dummy_write2);
 
 	SPI_PeripheralControl(pSPIx, DISABLE);; //SS pin pull to high
 }
@@ -295,7 +295,9 @@ void EXTI9_5_IRQHandler(void)
     {
         EXTI->PR |= 1 << PIN_IRQ_IT; // clear pending flag, otherwise we'd get endless interrupts
         // handle pin ZX here
-    	printf("RSTSTATUS : %x \n", ADE_ReadData(SPI2, RSTSTATUS, 2));
+        for(int i = 0; i < 5000; i++);
+        printf("RSTSTATUS : %x \n", ADE_ReadData(SPI2, RSTSTATUS, 2));
+
 
 
     }
