@@ -57,37 +57,49 @@ void int_to_string(uint32_t num , char* buf)
 }
 
 int main(void) {
-	char* buf;
+//	char* buf;
 
-	LCD5110_Init(0x37);
 	ADE_Inits();
 
+	delay();
+//	ADE_WriteData(SPI2, MODE, 0x000c, 2);
+	ADE_ReadData(SPI2, MODE, 2);
+//	ADE_ReadData(SPI2, IRQEN, 2);
 
-	//ADE_WriteData(SPI2, MODE, 0x000C, 2);
-
-	printf("MODE : %x \n", ADE_ReadData(SPI2, MODE, 2));
-	while(1)
-	{
-		uint32_t vrms = ADE_ReadData(SPI2, VRMS, 3);
-		int_to_string(vrms, buf);
-
-//		printf("VRMS : %x \n", vrms);
-		LCD5110_Clear();
-		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-		LCD5110_Refresh();
-		delay();
-
-		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
-		{
-			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
-		}
-		else
-		{
-			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 0);
-		}
-		delay();
-	}
+//	LCD5110_Init(0x37);
+//	ADE_Inits();
+//
+//	printf("MODE2 : %x \n", ADE_ReadData(SPI2, MODE, 2));
+//	printf("IRQEN : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
+//
+//	printf("RSTSTATUS : %x \n", ADE_ReadData(SPI2, RSTSTATUS, 2));
+//
+//	while(1)
+//	{
+//		uint32_t vrms = ADE_ReadData(SPI2, VRMS, 3);
+//
+//		int_to_string(vrms, buf);
+//
+////		printf("VRMS : %x \n", vrms);
+//		LCD5110_Clear();
+//		LCD5110_Puts("Vrms: ", LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+//		LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+//		LCD5110_Refresh();
+//
+//
+//		delay();
+//
+//
+//		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
+//		{
+//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
+//		}
+//		else
+//		{
+//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 0);
+//		}
+//		delay();
+//	}
 //    TM_KEYPAD_Button_t Keypad_Button, last_key;
 //    last_key = TM_KEYPAD_Button_NOPRESSED;
 //    TM_KEYPAD_Init(TM_KEYPAD_Type_Large);

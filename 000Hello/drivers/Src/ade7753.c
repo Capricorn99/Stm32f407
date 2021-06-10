@@ -46,6 +46,7 @@ void SPI2_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//MOSI
+//	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_OD;
     SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
 	GPIO_Init(&SPIPins);
 
@@ -54,15 +55,15 @@ void SPI2_GPIOInits(void)
 	GPIO_Init(&SPIPins);
 
 	//NSS
+//	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
  	SPIPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_NSS;
 	GPIO_Init(&SPIPins);
 
 	//RESET Pin GPIO
-	SPIPins.pGPIOx = ADE_RST_PORT;
-	SPIPins.GPIO_PinConfig.GPIO_PinNumber = ADE_RST_PIN;
+	SPIPins.pGPIOx = PORT_RST;
+	SPIPins.GPIO_PinConfig.GPIO_PinNumber = PIN_RST;
 	SPIPins.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
 	SPIPins.GPIO_PinConfig.GPIO_PinAltFunMode = 0;
-	SPIPins.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	GPIO_Init(&SPIPins);
 
 }
@@ -72,7 +73,7 @@ void SPI2_Inits(void)
 	SPI2handle.pSPIx = SPI2;
 	SPI2handle.SPIConfig.SPI_BusConfig = SPI_BUS_CONFIG_FD;			//full duplex
 	SPI2handle.SPIConfig.SPI_DeviceMode = SPI_DEVICE_MODE_MASTER;	//STM as master
-	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV8;		// clock 2MHz
+	SPI2handle.SPIConfig.SPI_SclkSpeed = SPI_SCLK_SPEED_DIV16;		// clock 1MHz
 	SPI2handle.SPIConfig.SPI_DFF = SPI_DFF_8BITS;					// mỗi lần truyền 1 byte
 	SPI2handle.SPIConfig.SPI_CPOL = SPI_CPOL_LOW;					//CPOL 0
 	SPI2handle.SPIConfig.SPI_CPHA = SPI_CPHA_HIGH;					//CPHA 1
@@ -88,8 +89,8 @@ void ZeroX_Inits(void)
 {
 	//Input pin trigger as falling edge
 	GPIO_Handle_t GpioZX;
-	GpioZX.pGPIOx = IT_PORT_ZX;
-	GpioZX.GPIO_PinConfig.GPIO_PinNumber = IT_PIN_ZX;
+	GpioZX.pGPIOx = PORT_ZX_IT;
+	GpioZX.GPIO_PinConfig.GPIO_PinNumber = PIN_ZX_IT;
 	GpioZX.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
 	GpioZX.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
 	GpioZX.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
@@ -106,10 +107,15 @@ void SAG_Inits(void)
 	GPIO_Handle_t GpioSAG;
 	GpioSAG.pGPIOx = PORT_SAG;
 	GpioSAG.GPIO_PinConfig.GPIO_PinNumber = PIN_SAG;
-	GpioSAG.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IN;
-	GpioSAG.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
-	GpioSAG.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
-	GPIO_Init(&GpioSAG);
+
+
+//	GpioSAG.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+//	GpioSAG.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+//	GpioSAG.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
+//	GPIO_Init(&GpioSAG);
+//
+//	GPIO_IRQPriorityConfig(IRQ_NO_EXTI15_10, NVIC_IRQ_PRIO11);
+
 
 	//Output led
 	GPIO_Handle_t GpioLed;
@@ -128,6 +134,50 @@ void SAG_Inits(void)
 	ADE_WriteData(SPI2, SAGLVL, 0x17, 1);
 
 }
+
+void IRQ_Inits()
+{
+	//Input pin trigger as falling edge
+	GPIO_Handle_t GpioIRQ;
+	GpioIRQ.pGPIOx = PORT_IRQ_IT;
+	GpioIRQ.GPIO_PinConfig.GPIO_PinNumber = PIN_IRQ_IT;
+	GpioIRQ.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_IT_FT;
+	GpioIRQ.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	GpioIRQ.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
+	GPIO_Init(&GpioIRQ);
+
+	//IRQ configuration
+	GPIO_IRQPriorityConfig(IRQ_NO_EXTI9_5, NVIC_IRQ_PRIO0);
+	GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, ENABLE);
+
+	//Output led
+	GPIO_Handle_t GpioLed;
+
+	GpioLed.pGPIOx = PORT_VP_LED;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = PIN_VP_LED;
+	GpioLed.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUT;
+	GpioLed.GPIO_PinConfig.GPIO_PinSpeed = GPIO_SPEED_FAST;
+	GpioLed.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
+	GpioLed.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_NO_PUPD;
+	GPIO_Init(&GpioLed);
+
+	GpioLed.pGPIOx = PORT_IP_LED;
+	GpioLed.GPIO_PinConfig.GPIO_PinNumber = PIN_IP_LED;
+	GPIO_Init(&GpioLed);
+
+	//ADE side
+	printf("MODE2 : %x \n", ADE_ReadData(SPI2, MODE, 2));
+
+	printf("IRQEN0 : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
+
+	ADE_WriteData(SPI2, IRQEN, 0x0000, 2);
+	printf("IRQEN0 : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
+
+	ADE_WriteData(SPI2, VPKLVL, 0x29, 1);
+	ADE_WriteData(SPI2, IPKLVL, 0x2D, 1);
+
+}
+
 void ADE_Inits(void)
 {
 	SPI2_GPIOInits();
@@ -141,12 +191,23 @@ void ADE_Inits(void)
 	SPI_SSOEConfig(SPI2, ENABLE);
 
 	//Reset
+	GPIO_WriteToOutputPin(PORT_RST, PIN_RST, 1);
+	delay();
 	GPIO_WriteToOutputPin(PORT_RST, PIN_RST, 0);
 	delay();
 	GPIO_WriteToOutputPin(PORT_RST, PIN_RST, 1);
+	delay();
 
-	ZeroX_Inits();
-	SAG_Inits();
+//	ZeroX_Inits();
+//	delay();
+
+//	SAG_Inits();
+//	delay();
+
+//	IRQ_Inits();
+//	printf("IRQEN : %x \n", ADE_ReadData(SPI2, IRQEN, 2));
+
+
 }
 
 
@@ -206,17 +267,39 @@ void EXTI15_10_IRQHandler(void)
 {
 
     uint32_t pending = EXTI->PR;
-    if(pending & (1 << IT_PIN_ZX))
+//    if(pending & (1 << PIN_SAG))
+//    {
+//        EXTI->PR |= 1 << PIN_SAG; // clear pending flag, otherwise we'd get endless interrupts
+//        // handle pin ZX here
+//    	printf("SAG \n");
+//		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
+//		{
+//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
+//		}
+//    }
+    if(pending & (1 << PIN_ZX_IT))
     {
-        EXTI->PR = 1 << IT_PIN_ZX; // clear pending flag, otherwise we'd get endless interrupts
+        EXTI->PR |= 1 << PIN_ZX_IT; // clear pending flag, otherwise we'd get endless interrupts
         // handle pin ZX here
     	printf("VRMS : %x \n", ADE_ReadData(SPI2, VRMS, 3));
+    }
+
+}
+
+
+void EXTI9_5_IRQHandler(void)
+{
+
+    uint32_t pending = EXTI->PR;
+    if(pending & (1 << PIN_IRQ_IT))
+    {
+        EXTI->PR |= 1 << PIN_IRQ_IT; // clear pending flag, otherwise we'd get endless interrupts
+        // handle pin ZX here
+    	printf("RSTSTATUS : %x \n", ADE_ReadData(SPI2, RSTSTATUS, 2));
+
 
     }
-    if(pending & (1 << 6)) {
-        EXTI->PR = 1 << 6;
-        // handle pin 6 here
-    }
+
 }
 
 
