@@ -5,16 +5,19 @@
  *      Author: DELL7470
  */
 
-#ifndef INC_DS1307_H_
-#define INC_DS1307_H_
+#ifndef DS1307_H_
+#define DS1307_H_
 
 #include "stm32f4xx.h"
 
 /*Application configurable items */
-#define DS1307_I2C  			I2C1
-#define DS1307_I2C_GPIO_PORT    GPIOB
-#define DS1307_I2C_SDA_PIN 		GPIO_PIN_NO_7
-#define DS1307_I2C_SCL_PIN 		GPIO_PIN_NO_6
+#define DS1307_I2C  			I2C3
+
+#define DS1307_I2C_GPIO_PORT_SCL    GPIOA
+#define DS1307_I2C_GPIO_PORT_SDA    GPIOC
+
+#define DS1307_I2C_SDA_PIN 		GPIO_PIN_NO_9
+#define DS1307_I2C_SCL_PIN 		GPIO_PIN_NO_8
 #define DS1307_I2C_SPEED 		I2C_SCL_SPEED_SM
 #define DS1307_I2C_PUPD			GPIO_PIN_PU
 
@@ -73,5 +76,4 @@ void ds1307_get_current_time(RTC_time_t *);
 void ds1307_set_current_date(RTC_date_t *);
 void ds1307_get_current_date(RTC_date_t *);
 
-
-#endif /* INC_DS1307_H_ */
+#endif /* DS1307_H_ */

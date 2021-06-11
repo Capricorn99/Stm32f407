@@ -16,7 +16,7 @@ USART_Handle_t usart3_handle;
 
 void 	USART3_Init(void)
 {
-	usart3_handle.pUSARTx = USART3;
+	usart3_handle.pUSARTx = USART1;
 	usart3_handle.USART_Config.USART_Baud = USART_STD_BAUD_115200;
 	usart3_handle.USART_Config.USART_HWFlowControl = USART_HW_FLOW_CTRL_NONE;
 	usart3_handle.USART_Config.USART_Mode = USART_MODE_ONLY_TX;
@@ -30,7 +30,7 @@ void 	USART3_GPIOInit(void)
 {
 	GPIO_Handle_t usart_gpios;
 
-	usart_gpios.pGPIOx = GPIOC;
+	usart_gpios.pGPIOx = GPIOB;
 	usart_gpios.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_ALFN;
 	usart_gpios.GPIO_PinConfig.GPIO_PinoType = GPIO_OP_TYPE_PP;
 	usart_gpios.GPIO_PinConfig.GPIO_PinPuPdControl = GPIO_PIN_PU;
@@ -38,11 +38,12 @@ void 	USART3_GPIOInit(void)
 	usart_gpios.GPIO_PinConfig.GPIO_PinAltFunMode =7;
 
 	//USART3 TX
-	usart_gpios.GPIO_PinConfig.GPIO_PinNumber  = GPIO_PIN_NO_10;
+	usart_gpios.GPIO_PinConfig.GPIO_PinNumber  = GPIO_PIN_NO_6;
 	GPIO_Init(&usart_gpios);
 
 	//USART3 RX
-	usart_gpios.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_11;
+	usart_gpios.pGPIOx = GPIOA;
+	usart_gpios.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
 	GPIO_Init(&usart_gpios);
 
 
