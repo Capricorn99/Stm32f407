@@ -93,36 +93,36 @@ int main(void) {
 //
 //		if(GPIO_ReadFromInputPin(PORT_SAG, PIN_SAG) ==  0)
 //		{
-//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
+//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 0);
 //		}
 //		else
 //		{
-//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 0);
+//			GPIO_WriteToOutputPin(PORT_SAG_LED, PIN_SAG_LED, 1);
 //		}
 //		delay();
 //	}
-//    TM_KEYPAD_Button_t Keypad_Button, last_key;
-//    last_key = TM_KEYPAD_Button_NOPRESSED;
-//    TM_KEYPAD_Init(TM_KEYPAD_Type_Large);
-//    init_systick_timer(1000);
-//
-//	char* buf;
-//	int_to_string(ADE_ReadData(SPI2, VRMS, 3), buf);
-//    LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-//    LCD5110_Refresh();
+    TM_KEYPAD_Button_t Keypad_Button, last_key;
+    last_key = TM_KEYPAD_Button_NOPRESSED;
+    TM_KEYPAD_Init(TM_KEYPAD_Type_Large);
+    init_systick_timer(1000);
 
-//    while (1) {
-//        Keypad_Button = TM_KEYPAD_Read();
-//        if (Keypad_Button != TM_KEYPAD_Button_NOPRESSED && last_key == TM_KEYPAD_Button_NOPRESSED ) {
-////            printf("%u\n", (uint8_t) Keypad_Button);
-//        	static char buf[3];
-//        	buf[2] = '\0';
-//        	number_to_string((uint8_t) Keypad_Button, buf);
-//        	LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
-//        	LCD5110_Refresh();
-//		}
-//        last_key = Keypad_Button;
-//    }
+
+	int_to_string(ADE_ReadData(SPI2, VRMS, 3), buf);
+    LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+    LCD5110_Refresh();
+
+    while (1) {
+        Keypad_Button = TM_KEYPAD_Read();
+        if (Keypad_Button != TM_KEYPAD_Button_NOPRESSED && last_key == TM_KEYPAD_Button_NOPRESSED ) {
+//            printf("%u\n", (uint8_t) Keypad_Button);
+        	static char buf[3];
+        	buf[2] = '\0';
+        	int_to_string((uint32_t) Keypad_Button, buf);
+        	LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+        	LCD5110_Refresh();
+		}
+        last_key = Keypad_Button;
+    }
 }
 
 

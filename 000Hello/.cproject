@@ -143,9 +143,9 @@
                         					
                     </folderInfo>
                     					
-                    <fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.278502039" name="main.c" rcbsApplicability="disable" resourcePath="Src/main.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.1282115673">
+                    <fileInfo id="com.st.stm32cube.ide.mcu.gnu.managedbuild.config.exe.debug.415916591.232428123" name="102Keypad_communicate.c" rcbsApplicability="disable" resourcePath="Src/102Keypad_communicate.c" toolsToInvoke="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.1683238713">
                         						
-                        <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.1282115673" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361"/>
+                        <tool id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361.1683238713" name="MCU GCC Compiler" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.c.compiler.9205361"/>
                         					
                     </fileInfo>
                     					
@@ -217,7 +217,7 @@
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Inc"/>
                         						
-                        <entry excluding="test.c|100ADE_comunicate.c|001led_toggle.c|101LCD5110_communicate.c|015uart_tx.c|016uart_case.c|017rtc.c|011i2c_master_rx_testing.c|010i2c_master_tx_testing.c|102Keypad_communicate.c|002led_button.c|005button_interrupt.c|008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|004HSI_measurement.c|009spi_message_rcv_it.c|003led_button_ext.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
+                        <entry excluding="test.c|main.c|100ADE_comunicate.c|001led_toggle.c|101LCD5110_communicate.c|015uart_tx.c|016uart_case.c|017rtc.c|011i2c_master_rx_testing.c|010i2c_master_tx_testing.c|002led_button.c|005button_interrupt.c|008spi_cmd_handling.c|007spi_rxonly_arduino.c|006spi_tx_testing.c|004HSI_measurement.c|009spi_message_rcv_it.c|003led_button_ext.c" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Src"/>
                         						
                         <entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Startup"/>
                         						

@@ -21,45 +21,45 @@
 /* Rows */
 /* Row 1 default */
 #ifndef KEYPAD_ROW_1_PIN
-#define KEYPAD_ROW_1_PORT			GPIOC
-#define KEYPAD_ROW_1_PIN			GPIO_PIN_NO_0
+#define KEYPAD_ROW_1_PORT			GPIOB
+#define KEYPAD_ROW_1_PIN			GPIO_PIN_NO_7
 #endif
 /* Row 2 default */
 #ifndef KEYPAD_ROW_2_PIN
-#define KEYPAD_ROW_2_PORT			GPIOC
-#define KEYPAD_ROW_2_PIN			GPIO_PIN_NO_1
+#define KEYPAD_ROW_2_PORT			GPIOB
+#define KEYPAD_ROW_2_PIN			GPIO_PIN_NO_5
 #endif
 /* Row 3 default */
 #ifndef KEYPAD_ROW_3_PIN
-#define KEYPAD_ROW_3_PORT			GPIOC
-#define KEYPAD_ROW_3_PIN			GPIO_PIN_NO_2
+#define KEYPAD_ROW_3_PORT			GPIOB
+#define KEYPAD_ROW_3_PIN			GPIO_PIN_NO_3
 #endif
 /* Row 4 default */
 #ifndef KEYPAD_ROW_4_PIN
-#define KEYPAD_ROW_4_PORT			GPIOC
-#define KEYPAD_ROW_4_PIN			GPIO_PIN_NO_3
+#define KEYPAD_ROW_4_PORT			GPIOD
+#define KEYPAD_ROW_4_PIN			GPIO_PIN_NO_6
 #endif
 
 /* Columns */
 /* Column 1 default */
 #ifndef KEYPAD_COLUMN_1_PIN
 #define KEYPAD_COLUMN_1_PORT		GPIOD
-#define KEYPAD_COLUMN_1_PIN			GPIO_PIN_NO_0
+#define KEYPAD_COLUMN_1_PIN			GPIO_PIN_NO_4
 #endif
 /* Column 2 default */
 #ifndef KEYPAD_COLUMN_2_PIN
 #define KEYPAD_COLUMN_2_PORT		GPIOD
-#define KEYPAD_COLUMN_2_PIN			GPIO_PIN_NO_1
+#define KEYPAD_COLUMN_2_PIN			GPIO_PIN_NO_2
 #endif
 /* Column 3 default */
 #ifndef KEYPAD_COLUMN_3_PIN
 #define KEYPAD_COLUMN_3_PORT		GPIOD
-#define KEYPAD_COLUMN_3_PIN			GPIO_PIN_NO_2
+#define KEYPAD_COLUMN_3_PIN			GPIO_PIN_NO_0
 #endif
 /* Column 4 default */
 #ifndef KEYPAD_COLUMN_4_PIN
-#define KEYPAD_COLUMN_4_PORT		GPIOD
-#define KEYPAD_COLUMN_4_PIN			GPIO_PIN_NO_3
+#define KEYPAD_COLUMN_4_PORT		GPIOC
+#define KEYPAD_COLUMN_4_PIN			GPIO_PIN_NO_11
 #endif
 
 /* Number of milliseconds between 2 reads */

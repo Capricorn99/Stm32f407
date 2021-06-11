@@ -52,40 +52,7 @@ void SPI_Inits(void)
 }
 
 int main() {
-	delay();
-	SPI_GPIOInits();
-	SPI_Inits();
-	SPI_SSOEConfig(SPI2, ENABLE);
 
-	SPI_PeripheralControl(SPI2, ENABLE);
-	SPI_Transfer(SPI2, 0x09);
-	SPI_Transfer(SPI2, 0xFF);
-	SPI_Transfer(SPI2, 0xFF);
-	SPI_PeripheralControl(SPI2, DISABLE);
-
-//	delay();
-
-	SPI_PeripheralControl(SPI2, ENABLE);
-	SPI_Transfer(SPI2, 0x0A);
-	SPI_Transfer(SPI2, 0x00);
-	SPI_Transfer(SPI2, 0x40);
-//	SPI_Transfer(SPI2, 0x00);
-	SPI_PeripheralControl(SPI2, DISABLE);
-
-	SPI_PeripheralControl(SPI2, ENABLE);
-	SPI_Transfer(SPI2, 0x0A);
-	SPI_Transfer(SPI2, 0xFF);
-	SPI_Transfer(SPI2, 0xFF);
-//	SPI_Transfer(SPI2, 0x00);
-	SPI_PeripheralControl(SPI2, DISABLE);
-
-//	delay();
-
-	SPI_PeripheralControl(SPI2, ENABLE);
-	SPI_Transfer(SPI2, 0x09);
-	SPI_Transfer(SPI2, 0xFF);
-	SPI_Transfer(SPI2, 0xFF);
-//	SPI_Transfer(SPI2, 0x00);
-	SPI_PeripheralControl(SPI2, DISABLE);
+	printf("hello world \n");
 	return 0;
 }

@@ -5,6 +5,30 @@
  *      Author: DELL7470
  */
 #include "keypad4x4.h"
+#include "lcd5110.h"
+
+void int_to_string(uint32_t num , char* buf)
+{
+	int buf_len;
+	if (num == 0) {
+		buf[0] = 48;
+		buf_len = 1;
+	}
+	else {
+		for (buf_len = 0; num > 0; buf_len++) {
+			buf[buf_len] = (num % 10) + 48;
+			num /= 10;
+		}
+
+		for (int low = 0, high = buf_len - 1; low < high; low++, high--)
+		{
+			int temp = buf[low];
+			buf[low] = buf[high];
+			buf[high] = temp;
+		}
+	}
+	buf[buf_len] = '\0';
+}
 
 void delay(void)
 {
@@ -37,14 +61,16 @@ void init_systick_timer(uint32_t tick_hz) //tan so nhay vào ngắt trong 1 giâ
 
 int main(void)
 {
+	char* buf;
+	LCD5110_Init(0x37);
+
     /* Create keypad instance */
     TM_KEYPAD_Button_t Keypad_Button, temp;
     temp = TM_KEYPAD_Button_NOPRESSED;
 
     /* Initialize matrix keyboard */
     TM_KEYPAD_Init(TM_KEYPAD_Type_Large);
-    init_systick_timer(1000);
-
+    init_systick_timer(10000);
 
     while (1) {
         /* Read keyboard data */
@@ -52,10 +78,14 @@ int main(void)
 
         /* Keypad was pressed */
         if (Keypad_Button != TM_KEYPAD_Button_NOPRESSED && temp == TM_KEYPAD_Button_NOPRESSED ) /* Keypad is pressed */
-        	{
-            /* Print to user */
-            printf("%u\n", (uint8_t) Keypad_Button);
-        	}
+		{
+        	/* Print to user */
+//			printf("%u \n", (uint8_t) Keypad_Button);
+        	int_to_string((uint32_t) Keypad_Button, buf);
+//        	LCD5110_Clear();
+        	LCD5110_Puts(buf, LCD5110_Pixel_Set, LCD5110_FontSize_5x7);
+        	LCD5110_Refresh();
+		}
         temp = Keypad_Button;
     }
 }
